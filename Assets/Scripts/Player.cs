@@ -5,7 +5,11 @@ using UnityEditor;
 
 public class Player : MonoBehaviour {
 
-	private float gravitySpeed = -2.0f;
+	// if using rigidbody
+	private Rigidbody rb;
+
+	//
+	private float gravitySpeed = -50.0f;
 	public float walkSpeed = 2.0f;
 	private bool grounded = false;
 	public LayerMask groundLayer;
@@ -18,11 +22,16 @@ public class Player : MonoBehaviour {
 	private Bounds playerbounds;
 	private float rayLength;
 
+	// Ladder
+	public bool onLadder = false;
+
 
 	// Use this for initialization
 	void Start () {
 		playerbounds = gameObject.GetComponent<BoxCollider>().bounds;
-		rayLength = playerbounds.size.y / 2 + 1.0f;
+		rayLength = playerbounds.size.y / 2 + 2.0f;
+
+		rb = gameObject.GetComponent<Rigidbody> ();
 	}
 	
 	// Update is called once per frame
@@ -81,23 +90,41 @@ public class Player : MonoBehaviour {
 
 		Vector3 dwn = transform.TransformDirection (-Vector3.forward);
 
-		RaycastHit rayHit;
-		bool hit = Physics.Raycast (transform.position, dwn, rayLength, groundLayer, out rayHit);
+//		RaycastHit rayHit;
+//		bool hit = Physics.Raycast (transform.position, dwn, rayLength, groundLayer, out rayHit);
 
 //		Debug.Log("Hit distance: " + hit.distance);
 
 		Debug.DrawRay (transform.position, dwn * rayLength, Color.green);
-		if (hit) {
-			print ("There is something below the object!");
-			grounded = false;
-		}
+//		if (hit) {
+//			print ("There is something below the object!");
+//			grounded = false;
+//		}
 
-		// gravity
-		if (!grounded) {
-			Debug.Log ("Should not be falling");
-			zMove += gravitySpeed;
+//		RaycastHit hit;
+//
+//		if (Physics.Raycast (transform.position, -Vector3.up, out hit)) {
+//			print ("Found an object - distance: " + hit.distance);
+//			if (hit.distance <= (playerbounds.size.y / 2)) {
+//				Debug.Log ("GROUNDEDDDDDD");
+//				grounded = true;
+//			} else {
+//				grounded = false;
+//			}
+//		}
+//
+//		// gravity
+//		if (!grounded) {
+//			zMove += gravitySpeed * Time.deltaTime;
+//		} else {
+//			zMove = 0;
+//		}
+//
+		// Ladder
+		if (onLadder) {
+			zMove = inputV;
 		} else {
-			zMove = 0;
+			zMove = 0.0f;
 		}
 
 		Vector3 velocityDirection = new Vector3 (xMove, 0, zMove);
@@ -108,13 +135,15 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter (Collider col)
 	{
-		if (col.gameObject.layer == 8) {
-			grounded = true;
+		if (col.gameObject.tag == "Ladder") {
+			rb.useGravity = false;
+			onLadder = true;
 		}
 	}
 	void OnTriggerExit(Collider col){
-		if (col.gameObject.layer == 8) {
-			grounded = false;
+		if (col.gameObject.tag == "Ladder") {
+			rb.useGravity = true;
+			onLadder = false;
 		}
 	}
 }
