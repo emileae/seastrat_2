@@ -26,6 +26,7 @@ public class Player : MonoBehaviour {
 	public bool onLadder = false;
 
 	// Coin-ing
+	public GameObject payTarget;
 	private bool canPayCoin = false;
 	private bool canCollectCoin = false;
 	public int coins = 0;
@@ -64,9 +65,9 @@ public class Player : MonoBehaviour {
 		float xMove = inputH;
 		float zMove = inputV;
 
-		Vector3 dwn = transform.TransformDirection (-Vector3.forward);
+//		Vector3 dwn = transform.TransformDirection (-Vector3.forward);
 
-		Debug.DrawRay (transform.position, dwn * rayLength, Color.green);
+//		Debug.DrawRay (transform.position, dwn * rayLength, Color.green);
 		// Ladder
 		if (onLadder) {
 			zMove = inputV;
@@ -89,10 +90,12 @@ public class Player : MonoBehaviour {
 		if (col.gameObject.tag == "CollectCoin") {
 			Debug.Log("Can collect coin.....");
 			canCollectCoin = true;
+			payTarget = col.gameObject;
 		}
 		if (col.gameObject.tag == "PayCoin") {
 			Debug.Log("Can pay coin.....");
 			canPayCoin = true;
+			payTarget = col.gameObject;
 		}
 	}
 	void OnTriggerExit(Collider col){
@@ -110,12 +113,14 @@ public class Player : MonoBehaviour {
 
 	IEnumerator PayCoin(){
 		yield return new WaitForSeconds(0.2f);
-		Debug.Log("Pay a coin");
 		coinActive = false;
+		Debug.Log("Pay a coin");
+		payTarget.GetComponent<Building>().PayCoin();
 	}
 	IEnumerator CollectCoin(){
 		yield return new WaitForSeconds(0.2f);
-		Debug.Log("Collect a coin");
 		coinActive = false;
+		Debug.Log("Collect a coin");
+//		payTarget.GetComponent<Building>().CollectCoin();
 	}
 }
