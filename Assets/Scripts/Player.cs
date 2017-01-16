@@ -25,6 +25,12 @@ public class Player : MonoBehaviour {
 	// Ladder
 	public bool onLadder = false;
 
+	// Coin-ing
+	private bool canPayCoin = false;
+	private bool canCollectCoin = false;
+	public int coins = 0;
+	private bool coinActive = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -37,50 +43,20 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		float inputV = Input.GetAxisRaw ("Vertical");
 
-//		float inputH = Input.GetAxisRaw ("Horizontal");
-//		float inputV = Input.GetAxisRaw ("Vertical");
-//
-//		float xMove = inputH;
-//		float zMove = inputV;
-//
-//		// gravity
-////		grounded = Physics.CheckSphere (isGrounded.position, groundCheckRadius, groundLayer);
-//		if (!grounded) {
-//			Debug.Log ("Should not be falling");
-//			zMove += gravitySpeed;
-//		} else {
-//			zMove = 0;
-//		}
-//
-//		Vector3 velocityDirection = new Vector3 (xMove, 0, zMove);
-//
-//		transform.Translate(velocityDirection * walkSpeed * Time.deltaTime);
-
+		if (!onLadder && !coinActive && inputV < 0) {
+			coinActive = true;
+			if (canPayCoin) {
+				StartCoroutine (PayCoin ());
+			}else if (canCollectCoin){
+				StartCoroutine (CollectCoin ());
+			}
+		}
 	}
 
 	void FixedUpdate ()
 	{
-//		float inputH = Input.GetAxisRaw ("Horizontal");
-//		float inputV = Input.GetAxisRaw ("Vertical");
-//
-//		float xMove = inputH;
-//		float zMove = inputV;
-//
-//		// gravity
-////		grounded = Physics.CheckSphere (isGrounded.position, groundCheckRadius, groundLayer);
-//		if (!grounded) {
-//			Debug.Log ("Should not be falling");
-//			zMove += gravitySpeed;
-//		} else {
-//			zMove = 0;
-//		}
-//
-//		Vector3 velocityDirection = new Vector3 (xMove, 0, zMove);
-//
-//		transform.Translate(velocityDirection * walkSpeed * Time.deltaTime);
-
-		// Raycast
 
 		float inputH = Input.GetAxisRaw ("Horizontal");
 		float inputV = Input.GetAxisRaw ("Vertical");
@@ -90,36 +66,7 @@ public class Player : MonoBehaviour {
 
 		Vector3 dwn = transform.TransformDirection (-Vector3.forward);
 
-//		RaycastHit rayHit;
-//		bool hit = Physics.Raycast (transform.position, dwn, rayLength, groundLayer, out rayHit);
-
-//		Debug.Log("Hit distance: " + hit.distance);
-
 		Debug.DrawRay (transform.position, dwn * rayLength, Color.green);
-//		if (hit) {
-//			print ("There is something below the object!");
-//			grounded = false;
-//		}
-
-//		RaycastHit hit;
-//
-//		if (Physics.Raycast (transform.position, -Vector3.up, out hit)) {
-//			print ("Found an object - distance: " + hit.distance);
-//			if (hit.distance <= (playerbounds.size.y / 2)) {
-//				Debug.Log ("GROUNDEDDDDDD");
-//				grounded = true;
-//			} else {
-//				grounded = false;
-//			}
-//		}
-//
-//		// gravity
-//		if (!grounded) {
-//			zMove += gravitySpeed * Time.deltaTime;
-//		} else {
-//			zMove = 0;
-//		}
-//
 		// Ladder
 		if (onLadder) {
 			zMove = inputV;
@@ -139,11 +86,36 @@ public class Player : MonoBehaviour {
 			rb.useGravity = false;
 			onLadder = true;
 		}
+		if (col.gameObject.tag == "CollectCoin") {
+			Debug.Log("Can collect coin.....");
+			canCollectCoin = true;
+		}
+		if (col.gameObject.tag == "PayCoin") {
+			Debug.Log("Can pay coin.....");
+			canPayCoin = true;
+		}
 	}
 	void OnTriggerExit(Collider col){
 		if (col.gameObject.tag == "Ladder") {
 			rb.useGravity = true;
 			onLadder = false;
 		}
+		if (col.gameObject.tag == "CollectCoin") {
+			canCollectCoin = false;
+		}
+		if (col.gameObject.tag == "PayCoin") {
+			canPayCoin = false;
+		}
+	}
+
+	IEnumerator PayCoin(){
+		yield return new WaitForSeconds(0.2f);
+		Debug.Log("Pay a coin");
+		coinActive = false;
+	}
+	IEnumerator CollectCoin(){
+		yield return new WaitForSeconds(0.2f);
+		Debug.Log("Collect a coin");
+		coinActive = false;
 	}
 }
