@@ -3,7 +3,20 @@ using System.Collections;
 
 public class NPC : MonoBehaviour {
 
+	// NPC types
+	public GameObject unemployedModel;
+	public GameObject fishermanModel;
+	public GameObject harpoonModel;
+
 	public Blackboard blackboard;
+
+	private bool haveItem = false;
+	private GameObject item;
+	private Item itemScript;
+
+	// NPC occupation
+	private bool isFisherman = false;
+	private bool isHarpoonman = false;
 
 	public GameObject leftSensor;
 	public GameObject rightSensor;
@@ -41,5 +54,32 @@ public class NPC : MonoBehaviour {
 		}
 
 		transform.Translate(direction * walkSpeed * Time.deltaTime);
+	}
+
+	void OnTriggerEnter(Collider col){
+		// layer 10 == item layer
+		if (col.gameObject.layer == 10 && !haveItem) {
+			Debug.Log ("Pick up the item!!!!!");
+			item = col.gameObject;
+			PickUpItem ();
+		}
+	}
+
+	void OnTriggerExit(Collider col){
+		
+	}
+
+	void PickUpItem(){
+		Debug.Log ("Picking up the item");
+		itemScript = item.GetComponent<Item> ();
+		if (itemScript.fishingRod) {
+			isFisherman = true;
+			unemployedModel.SetActive (false);
+			fishermanModel.SetActive (true);
+			haveItem = true;
+			// Destroy the rod
+			itemScript.buildingScript.RemoveFishingRod();
+			Destroy(item);
+		}
 	}
 }

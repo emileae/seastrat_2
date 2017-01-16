@@ -22,7 +22,8 @@ GameObject:
   - 33: {fileID: 33000011446961262}
   - 23: {fileID: 23000013658271762}
   - 114: {fileID: 114000012640696484}
-  m_Layer: 0
+  - 65: {fileID: 65000012748703830}
+  m_Layer: 9
   m_Name: HarpoonHouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,8 +36,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013757380990}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.42, y: 4.26, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -78,6 +79,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013757380990}
   m_Mesh: {fileID: 4300000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+--- !u!65 &65000012748703830
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013757380990}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.3413901, y: 7.206999, z: 14.044492}
+  m_Center: {x: -0.16303396, y: 3.6045723, z: -3.428535}
 --- !u!114 &114000012640696484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,11 +102,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65bcd816df59643248a60d4adeec6cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMainHouse: 0
   fishingRodHouse: {fileID: 0}
   harpoonHouse: {fileID: 0}
   active: 0
   costToBuild: 3
   costOfItem: 2
-  hollowCoin: {fileID: 0}
-  coin: {fileID: 0}
+  hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
+  coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0

@@ -75,7 +75,7 @@ public class Player : MonoBehaviour {
 			zMove = 0.0f;
 		}
 
-		Vector3 velocityDirection = new Vector3 (xMove, 0, zMove);
+		Vector3 velocityDirection = new Vector3 (xMove, zMove, 0);
 
 		transform.Translate(velocityDirection * walkSpeed * Time.deltaTime);
 
@@ -92,7 +92,8 @@ public class Player : MonoBehaviour {
 			canCollectCoin = true;
 			payTarget = col.gameObject;
 		}
-		if (col.gameObject.tag == "PayCoin") {
+		// payable layer  == 9
+		if (col.gameObject.layer == 9) {
 			Debug.Log("Can pay coin.....");
 			canPayCoin = true;
 			payTarget = col.gameObject;
@@ -106,7 +107,7 @@ public class Player : MonoBehaviour {
 		if (col.gameObject.tag == "CollectCoin") {
 			canCollectCoin = false;
 		}
-		if (col.gameObject.tag == "PayCoin") {
+		if (col.gameObject.layer == 9) {
 			canPayCoin = false;
 		}
 	}
