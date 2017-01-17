@@ -30,12 +30,17 @@ public class Building : MonoBehaviour {
 	public int coinsAdded = 0;
 	private bool paid = false;
 
+	// money
 	private List<GameObject> hollowCoinList = new List<GameObject>();
 	private List<GameObject> coinList = new List<GameObject>();
+	public int bankedCoins = 0;
 
 	// building bounds
 	private BoxCollider collider;
 	private Bounds buildingBounds;
+
+	// occupied by NPC - in case of fishing spot  & prob hunting spot, farms & maybe others
+	public bool occupied = false;
 
 	// Use this for initialization
 	void Start ()

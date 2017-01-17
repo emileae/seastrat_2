@@ -26,6 +26,7 @@ public class NPC : MonoBehaviour {
 	private Platform platformScript;
 	private int platformIndex = 0;
 	public GameObject mainHouse;
+	public Building mainHouseScript;
 
 	private BoxCollider collider;
 	private Bounds npcBounds;
@@ -41,13 +42,16 @@ public class NPC : MonoBehaviour {
 	private bool stop = false;
 
 	// going to mainhouse
-	private bool atMainHouse = false;
+	private bool isSelling = false;
+	public bool atMainHouse = false;
 	private bool offloading = false;
 
 	//fisherman
+	private GameObject homeFishingSpot;
+	private bool atFishingSpot = false;
 	private bool goFish = false;
 	private bool isFishing = false;
-	private int numFish = 0;
+	public int numFish = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -58,6 +62,7 @@ public class NPC : MonoBehaviour {
 			platformScript = currentPlatform.GetComponent<Platform>();
 			platformIndex = platformScript.platformIndex;
 			mainHouse = blackboard.platformMainHouses[platformIndex];
+			mainHouseScript = mainHouse.GetComponent<Building> ();
 			transform.position = new Vector3 (transform.position.x, blackboard.platformTopPos[platformIndex], transform.position.z);
 		}
 	}
@@ -78,27 +83,45 @@ public class NPC : MonoBehaviour {
 		if (stop) {
 			speedModifier = 0;
 		}
-		if (goFish && !isFishing) {
-			if (numFish >= blackboard.fishermanCapacity) {
-				Debug.Log ("Take Fish to market.....");
-				stop = false;
-				isFishing = false;
-				if (transform.position.x > mainHouse.transform.position.x) {
-					direction = -Vector3.right;
+
+		// going to fishing spot to catch fish
+		// goFish = NPC's task is to fish isFishing = is bus catching a fish at the fishing spot
+		if (isFisherman) {
+//			if (goFish && !atFishingSpot) {
+//				ReturnToFishingSpot ();
+//			}
+			if (goFish && !isFishing && atFishingSpot) {
+				if (numFish >= blackboard.fishermanCapacity) {
+					Debug.Log ("Take Fish to market.....");
+					stop = false;
+					speedModifier = 1.0f;
+					isFishing = false;
+					goFish = false;// stop fishing and go sell
+					if (transform.position.x > mainHouse.transform.position.x) {
+						direction = -Vector3.right;
+					} else {
+						direction = Vector3.right;
+					}
 				} else {
-					direction = Vector3.right;
+					isFishing = true;
+					StartCoroutine (GoFish ());
 				}
-				if (atMainHouse) {
+
+			}
+
+			// going to sell fish
+			if (atMainHouse) {
+				if (numFish > 0) {
 					stop = true;
 					speedModifier = 0;
-					Debug.Log ("At the market to sell " + numFish + " fish.");
-					StartCoroutine (Sell ());
-				} else {
-					speedModifier = 1;
+					if (!isSelling) {
+						isSelling = true;
+						StartCoroutine (Sell ());
+					}
+				} else if (numFish <= 0) {
+					Debug.Log ("Go back to fishing spot");
+					ReturnToFishingSpot ();
 				}
-			} else {
-				isFishing = true;
-				StartCoroutine (GoFish ());
 			}
 		}
 
@@ -117,11 +140,27 @@ public class NPC : MonoBehaviour {
 
 		// if payable and a waypoint... i.e. fishing spot, farm, boat building or whatever
 		if (go.layer == 9) {
-			Debug.Log ("Can do something here");
 			buildingScript = go.GetComponent<Building> ();
-			if (isFisherman && buildingScript.isFishingSpot && buildingScript.active) {
-				stop = true;
-				goFish = true;
+			if (isFisherman) {
+				if (buildingScript.isFishingSpot) {
+					atFishingSpot = true;
+				}
+				if (homeFishingSpot == null) {
+					if (isFisherman && buildingScript.isFishingSpot && buildingScript.active && !buildingScript.occupied) {
+						buildingScript.occupied = true;
+						homeFishingSpot = go;
+						stop = true;
+						goFish = true;
+					}
+				} else {
+					Debug.Log ("should STOP!!!");
+					// if moving over home fishing spot and have no fish, then go fishing
+					if (go == homeFishingSpot && numFish <= 0 && isFisherman) {
+						Debug.Log ("STOP!!!");
+						stop = true;
+						goFish = true;
+					}
+				}
 			}
 
 			if (buildingScript.isMainHouse) {
@@ -135,9 +174,16 @@ public class NPC : MonoBehaviour {
 		GameObject go = col.gameObject;
 		if (go.layer == 9) {
 			buildingScript = go.GetComponent<Building> ();
-			if (isFisherman && buildingScript.isFishingSpot && buildingScript.active) {
-				stop = false;
-//				goFish = true;
+
+			if (isFisherman) {
+				if (buildingScript.isFishingSpot) {
+					atFishingSpot = false;
+				}
+				// if leaving home fishing spot
+				if (buildingScript.isFishingSpot && buildingScript.active && go == homeFishingSpot) {
+					stop = false;
+//					goFish = false;
+				}
 			}
 
 			if (buildingScript.isMainHouse) {
@@ -162,16 +208,33 @@ public class NPC : MonoBehaviour {
 	}
 
 	IEnumerator GoFish(){
-		yield return new WaitForSeconds(2.0f);
+		yield return new WaitForSeconds(1.0f);
 		numFish += 1;
 		isFishing = false;
 		Debug.Log("Caught a fish");
 	}
 	IEnumerator Sell(){
-		yield return new WaitForSeconds(10.0f);
-		numFish += 1;
-		isFishing = false;
-		Debug.Log("Caught a fish");
+		Debug.Log ("going to market");
+		yield return new WaitForSeconds(1.0f);
+		numFish -= 1;
+		Debug.Log ("numFish: " + numFish);
+		if (mainHouseScript != null) {
+			mainHouseScript.bankedCoins += 1;
+		}
+		isSelling = false;
+	}
+
+	void ReturnToFishingSpot(){
+		Debug.Log ("returning to fishing spot");
+		//reverse direction and start moving
+		if (homeFishingSpot.transform.position.x > mainHouse.transform.position.x) {
+			direction = Vector3.right;
+		} else {
+			direction = -Vector3.right;
+		}
+		goFish = true;
+		stop = false;
+		speedModifier = 1;
 	}
 
 }
