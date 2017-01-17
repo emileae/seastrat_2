@@ -9,6 +9,7 @@ public class Building : MonoBehaviour {
 	public bool isMainHouse = false;
 	public bool isFishingRodHouse = false;
 	public bool isHarpoonHouse = false;
+	public bool isFishingSpot = false;
 
 	public GameObject fishingRodHouse;
 	public GameObject harpoonHouse;
@@ -57,7 +58,7 @@ public class Building : MonoBehaviour {
 	}
 
 
-
+	// this code is replicated in HotSpot.cs
 	public void PayCoin ()
 	{
 		if (!active) {
@@ -114,15 +115,6 @@ public class Building : MonoBehaviour {
 			}
 		}
 	}
-	void RemoveCoins(){
-		for (int i = 0; i < coinList.Count; i++) {
-			Destroy(coinList[i]);
-			if (i == (coinList.Count - 1)) {
-				coinList.Clear ();
-			}
-		}
-		coinsAdded = 0;
-	}
 
 	void ShowCostOfItem ()
 	{
@@ -142,6 +134,16 @@ public class Building : MonoBehaviour {
 		for (int i = 0; i < hollowCoinList.Count; i++) {
 			hollowCoinList[i].SetActive(false);
 		}
+	}
+
+	void RemoveCoins(){
+		for (int i = 0; i < coinList.Count; i++) {
+			Destroy(coinList[i]);
+			if (i == (coinList.Count - 1)) {
+				coinList.Clear ();
+			}
+		}
+		coinsAdded = 0;
 	}
 
 	void AddFishingRodHouse(){

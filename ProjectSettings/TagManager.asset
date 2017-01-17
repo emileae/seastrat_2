@@ -8,6 +8,7 @@ TagManager:
   - Ladder
   - PayCoin
   - CollectCoin
+  - Waypoint
   layers:
   - Default
   - TransparentFX
