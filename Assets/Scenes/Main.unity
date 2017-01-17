@@ -513,6 +513,8 @@ MonoBehaviour:
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
+  bankedCoins: 0
+  occupied: 0
 --- !u!1 &1022579437
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,6 +756,8 @@ MonoBehaviour:
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
+  bankedCoins: 0
+  occupied: 0
 --- !u!1001 &1356085034
 Prefab:
   m_ObjectHideFlags: 0
@@ -971,11 +975,14 @@ MonoBehaviour:
   rightSensor: {fileID: 528604769}
   currentPlatform: {fileID: 1677945177}
   mainHouse: {fileID: 0}
+  mainHouseScript: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
   walkSpeed: 2
   speedModifier: 1
+  atMainHouse: 0
+  numFish: 0
 --- !u!4 &1637679729
 Transform:
   m_ObjectHideFlags: 0
@@ -1106,7 +1113,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 565b629730c1d4dbfa2f3c916056982d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.9
+      value: 11.3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 565b629730c1d4dbfa2f3c916056982d, type: 3}
       propertyPath: m_LocalPosition.y
