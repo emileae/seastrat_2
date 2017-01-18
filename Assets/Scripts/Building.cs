@@ -30,10 +30,13 @@ public class Building : MonoBehaviour {
 	public int coinsAdded = 0;
 	private bool paid = false;
 
+	// depositing coins for player to take
+	public int coinsDeposited = 0;
+
 	// money
 	private List<GameObject> hollowCoinList = new List<GameObject>();
 	private List<GameObject> coinList = new List<GameObject>();
-	public int bankedCoins = 0;
+	private List<GameObject> depositedCoinList = new List<GameObject>();
 
 	// building bounds
 	private BoxCollider collider;
@@ -46,13 +49,21 @@ public class Building : MonoBehaviour {
 	void Start ()
 	{
 		buildingScript = gameObject.GetComponent<Building> ();
-		collider = gameObject.GetComponent<BoxCollider>();
+		collider = gameObject.GetComponent<BoxCollider> ();
 		buildingBounds = collider.bounds;
 
 		if (!active && costToBuild > 0) {
 			for (int i = 0; i < costToBuild; i++) {
-				GameObject clone = Instantiate(hollowCoin, new Vector3(transform.position.x, buildingBounds.max.y + 1 + (1*i), 0), Quaternion.identity) as GameObject;
-				hollowCoinList.Add(clone);
+				GameObject clone = Instantiate (hollowCoin, new Vector3 (transform.position.x, buildingBounds.max.y + 1 + (1 * i), 0), Quaternion.identity) as GameObject;
+				hollowCoinList.Add (clone);
+			}
+		}
+
+		// initial coins
+		if (coinsDeposited > 0) {
+			for (int i = 0; i < coinsDeposited; i++) {
+				GameObject clone = Instantiate (coin, new Vector3 (transform.position.x, buildingBounds.min.y - (1 * i), -3.1f), Quaternion.identity) as GameObject;
+				depositedCoinList.Add (clone);
 			}
 		}
 	}
@@ -110,6 +121,25 @@ public class Building : MonoBehaviour {
 		GameObject clone = Instantiate (coin, new Vector3 (transform.position.x, buildingBounds.max.y + 1 + (1 * coinsAdded), -0.1f), Quaternion.identity) as GameObject;
 		coinList.Add (clone);
 		coinsAdded += 1;
+	}
+
+	public void DepositCoin(){
+		// coins need to be positioned at z=-3 to be visible... fix this with design magic-ing
+		GameObject clone = Instantiate (coin, new Vector3 (transform.position.x, buildingBounds.min.y - (1 * coinsDeposited), -3.1f), Quaternion.identity) as GameObject;
+		depositedCoinList.Add (clone);
+		coinsDeposited += 1;
+	}
+
+	public int CollectCoin ()
+	{
+		if (coinsDeposited > 0) {
+			Destroy (depositedCoinList [depositedCoinList.Count - 1]);// destroy game object first
+			depositedCoinList.RemoveAt ((depositedCoinList.Count - 1));// after destroying game objet then remove from list
+			coinsDeposited -= 1;
+			return 1;
+		}else{
+			return 0;
+		}
 	}
 
 	void RemoveHollowCoins(){

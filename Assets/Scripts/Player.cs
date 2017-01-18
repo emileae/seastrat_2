@@ -25,7 +25,12 @@ public class Player : MonoBehaviour {
 	// Ladder
 	public bool onLadder = false;
 
+	// Buildings
+	private bool atMainHouse = false;
+	private Building buildingScript;
+
 	// Coin-ing
+	public int coinsInHand = 0;
 	public GameObject payTarget;
 	private bool canPayCoin = false;
 	private bool canCollectCoin = false;
@@ -50,7 +55,7 @@ public class Player : MonoBehaviour {
 			coinActive = true;
 			if (canPayCoin) {
 				StartCoroutine (PayCoin ());
-			}else if (canCollectCoin){
+			}else if (atMainHouse){
 				StartCoroutine (CollectCoin ());
 			}
 		}
@@ -83,32 +88,43 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter (Collider col)
 	{
-		if (col.gameObject.tag == "Ladder") {
+		GameObject go = col.gameObject;
+		if (go.tag == "Ladder") {
 			rb.useGravity = false;
 			onLadder = true;
 		}
-		if (col.gameObject.tag == "CollectCoin") {
-			Debug.Log("Can collect coin.....");
-			canCollectCoin = true;
-			payTarget = col.gameObject;
-		}
 		// payable layer  == 9
-		if (col.gameObject.layer == 9) {
-			Debug.Log("Can pay coin.....");
+		if (go.layer == 9) {
+			Debug.Log ("At a building.... so money can move");
+			buildingScript = go.GetComponent<Building> ();
 			canPayCoin = true;
-			payTarget = col.gameObject;
+			payTarget = go;
+			if (buildingScript.isMainHouse) {
+				atMainHouse = true;
+				// if main house is already activated
+				if (buildingScript.active) {
+					canPayCoin = false;
+				}
+			}
 		}
 	}
-	void OnTriggerExit(Collider col){
-		if (col.gameObject.tag == "Ladder") {
+	void OnTriggerExit (Collider col)
+	{
+		GameObject go = col.gameObject;
+		if (go.tag == "Ladder") {
 			rb.useGravity = true;
 			onLadder = false;
 		}
-		if (col.gameObject.tag == "CollectCoin") {
-			canCollectCoin = false;
-		}
-		if (col.gameObject.layer == 9) {
+		if (go.layer == 9) {
+			Debug.Log ("Left a building.... so money can't move");
+			buildingScript = null;
 			canPayCoin = false;
+			payTarget = null;
+			if (buildingScript != null) {
+				if (buildingScript.isMainHouse) {
+					atMainHouse = false;
+				}
+			}
 		}
 	}
 
@@ -118,10 +134,14 @@ public class Player : MonoBehaviour {
 		Debug.Log("Pay a coin");
 		payTarget.GetComponent<Building>().PayCoin();
 	}
-	IEnumerator CollectCoin(){
-		yield return new WaitForSeconds(0.2f);
+	IEnumerator CollectCoin ()
+	{
+		yield return new WaitForSeconds (0.2f);
 		coinActive = false;
-		Debug.Log("Collect a coin");
-//		payTarget.GetComponent<Building>().CollectCoin();
+		if (buildingScript != null) {
+			int coinsCollected = buildingScript.CollectCoin ();
+			coinsInHand += coinsCollected;
+
+		}
 	}
 }

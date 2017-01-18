@@ -87,42 +87,7 @@ public class NPC : MonoBehaviour {
 		// going to fishing spot to catch fish
 		// goFish = NPC's task is to fish isFishing = is bus catching a fish at the fishing spot
 		if (isFisherman) {
-//			if (goFish && !atFishingSpot) {
-//				ReturnToFishingSpot ();
-//			}
-			if (goFish && !isFishing && atFishingSpot) {
-				if (numFish >= blackboard.fishermanCapacity) {
-					Debug.Log ("Take Fish to market.....");
-					stop = false;
-					speedModifier = 1.0f;
-					isFishing = false;
-					goFish = false;// stop fishing and go sell
-					if (transform.position.x > mainHouse.transform.position.x) {
-						direction = -Vector3.right;
-					} else {
-						direction = Vector3.right;
-					}
-				} else {
-					isFishing = true;
-					StartCoroutine (GoFish ());
-				}
-
-			}
-
-			// going to sell fish
-			if (atMainHouse) {
-				if (numFish > 0) {
-					stop = true;
-					speedModifier = 0;
-					if (!isSelling) {
-						isSelling = true;
-						StartCoroutine (Sell ());
-					}
-				} else if (numFish <= 0) {
-					Debug.Log ("Go back to fishing spot");
-					ReturnToFishingSpot ();
-				}
-			}
+			FishermanLogic();
 		}
 
 		transform.Translate(direction * walkSpeed * speedModifier * Time.deltaTime);
@@ -219,7 +184,7 @@ public class NPC : MonoBehaviour {
 		numFish -= 1;
 		Debug.Log ("numFish: " + numFish);
 		if (mainHouseScript != null) {
-			mainHouseScript.bankedCoins += 1;
+			mainHouseScript.DepositCoin();
 		}
 		isSelling = false;
 	}
@@ -235,6 +200,42 @@ public class NPC : MonoBehaviour {
 		goFish = true;
 		stop = false;
 		speedModifier = 1;
+	}
+
+	void FishermanLogic(){
+		if (goFish && !isFishing && atFishingSpot) {
+			if (numFish >= blackboard.fishermanCapacity) {
+				Debug.Log ("Take Fish to market.....");
+				stop = false;
+				speedModifier = 1.0f;
+				isFishing = false;
+				goFish = false;// stop fishing and go sell
+				if (transform.position.x > mainHouse.transform.position.x) {
+					direction = -Vector3.right;
+				} else {
+					direction = Vector3.right;
+				}
+			} else {
+				isFishing = true;
+				StartCoroutine (GoFish ());
+			}
+
+		}
+
+		// going to sell fish
+		if (atMainHouse) {
+			if (numFish > 0) {
+				stop = true;
+				speedModifier = 0;
+				if (!isSelling) {
+					isSelling = true;
+					StartCoroutine (Sell ());
+				}
+			} else if (numFish <= 0) {
+				Debug.Log ("Go back to fishing spot");
+				ReturnToFishingSpot ();
+			}
+		}
 	}
 
 }
