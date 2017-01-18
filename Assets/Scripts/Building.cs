@@ -114,15 +114,11 @@ public class Building : MonoBehaviour {
 						AddFishingRodHouse ();
 						AddHarpoonHouse ();
 					}
-//					if (isSignalFire){
-//						Debug.Log("Built Signal fire");
-//					}
+
 				}
 			}
 		} else if (active) {
-			Debug.Log("--- coinsAdded " + coinsAdded);
 			if (coinsAdded < costOfItem) {
-				Debug.Log("---------- AddCoin");
 				AddCoin();
 				if (coinsAdded == costOfItem) {
 					paid = true;
@@ -143,12 +139,18 @@ public class Building : MonoBehaviour {
 
 					RemoveHollowCoins ();
 					RemoveCoins ();
+
+					// after building show the item cost without having to re-enter trigger
+					if (costOfItem > 0 && playerPresent) {
+						ShowCostOfItem ();
+					}
 				}
 			}
 		}
 	}
 
 	void AddCoin(){
+		Debug.Log("building.cs AddCoin() - - - - " + coinsAdded);
 		GameObject clone = Instantiate (coin, new Vector3 (transform.position.x, buildingBounds.max.y + 1 + (1 * coinsAdded), -0.1f), Quaternion.identity) as GameObject;
 		coinList.Add (clone);
 		coinsAdded += 1;
