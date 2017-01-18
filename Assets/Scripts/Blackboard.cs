@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class Blackboard : MonoBehaviour {
 
+	public Player playerScript;
+
+	public bool activeSignalFire = false;
+
 	public List<GameObject> platforms = new List<GameObject>();
 	public List<Platform> platformScripts = new List<Platform>();
 	public List<float> platformTopPos = new List<float>();

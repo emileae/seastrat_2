@@ -232,6 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ecdc3cb82dc4b53977efa3ca630b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerScript: {fileID: 766225567}
+  activeSignalFire: 0
   platforms:
   - {fileID: 1677945177}
   - {fileID: 1119956950}
@@ -312,6 +314,136 @@ Prefab:
     - {fileID: 9500000, guid: 26df8a04b82f647b0815099a0cca2f8b, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 26df8a04b82f647b0815099a0cca2f8b, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &649798737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 649798740}
+  - 114: {fileID: 649798739}
+  - 65: {fileID: 649798738}
+  m_Layer: 9
+  m_Name: SignalFire
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &649798738
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 649798737}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.837759, z: 14.151346}
+  m_Center: {x: 0, y: 0.9188793, z: 4.9137764}
+--- !u!114 &649798739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 649798737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65bcd816df59643248a60d4adeec6cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackboard: {fileID: 0}
+  isMainHouse: 0
+  isFishingRodHouse: 0
+  isHarpoonHouse: 0
+  isFishingSpot: 0
+  isSignalFire: 1
+  fishingRodHouse: {fileID: 0}
+  harpoonHouse: {fileID: 0}
+  active: 0
+  costToBuild: 1
+  costOfItem: 3
+  fishingRod: {fileID: 0}
+  hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
+  coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
+  coinsAdded: 0
+  paid: 0
+  hasInitialCoins: 0
+  coinsDeposited: 0
+  occupied: 0
+  activeFireModel: {fileID: 1275703118}
+  inactiveFireModel: {fileID: 842772802}
+--- !u!4 &649798740
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 649798737}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 35.71, y: 3.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 842772803}
+  - {fileID: 1275703119}
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+--- !u!1001 &681092027
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 649798740}
+    m_Modifications:
+    - target: {fileID: 400000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 725ec9c759aee4b2fa9bee88f0a86f60, type: 2}
+    - target: {fileID: 100000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1 &766225562 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 813822a1f0d834827a65c885d4461b8f, type: 3}
@@ -360,12 +492,22 @@ MonoBehaviour:
     m_Bits: 256
   isGrounded: {fileID: 0}
   onLadder: 0
+  coinsInHand: 0
   payTarget: {fileID: 0}
+  canPayCoin: 0
   coins: 0
 --- !u!4 &766225568 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 813822a1f0d834827a65c885d4461b8f, type: 3}
   m_PrefabInternal: {fileID: 1495497685}
+--- !u!1 &842772802 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+  m_PrefabInternal: {fileID: 681092027}
+--- !u!4 &842772803 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
+  m_PrefabInternal: {fileID: 681092027}
 --- !u!1 &881417123
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,10 +640,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65bcd816df59643248a60d4adeec6cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackboard: {fileID: 0}
   isMainHouse: 1
   isFishingRodHouse: 0
   isHarpoonHouse: 0
   isFishingSpot: 0
+  isSignalFire: 0
   fishingRodHouse: {fileID: 1000013943585644, guid: fc898c00ef9ca4d258f6f7afca2ffa9f,
     type: 2}
   harpoonHouse: {fileID: 1000013757380990, guid: 176edcc3361b243dc9dc1934f812fb64,
@@ -513,8 +657,12 @@ MonoBehaviour:
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
-  bankedCoins: 0
+  paid: 0
+  hasInitialCoins: 0
+  coinsDeposited: 9
   occupied: 0
+  activeFireModel: {fileID: 0}
+  inactiveFireModel: {fileID: 0}
 --- !u!1 &1022579437
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +725,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &1025973007 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 26df8a04b82f647b0815099a0cca2f8b, type: 3}
@@ -716,6 +864,60 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 813822a1f0d834827a65c885d4461b8f, type: 3}
   m_PrefabInternal: {fileID: 1356085034}
+--- !u!1001 &1226242886
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 649798740}
+    m_Modifications:
+    - target: {fileID: 400000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 725ec9c759aee4b2fa9bee88f0a86f60, type: 2}
+    - target: {fileID: 100000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1 &1230314760 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 565b629730c1d4dbfa2f3c916056982d, type: 3}
@@ -743,10 +945,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65bcd816df59643248a60d4adeec6cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackboard: {fileID: 0}
   isMainHouse: 0
   isFishingRodHouse: 0
   isHarpoonHouse: 0
   isFishingSpot: 1
+  isSignalFire: 0
   fishingRodHouse: {fileID: 0}
   harpoonHouse: {fileID: 0}
   active: 0
@@ -756,8 +960,20 @@ MonoBehaviour:
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
-  bankedCoins: 0
+  paid: 0
+  hasInitialCoins: 0
+  coinsDeposited: 0
   occupied: 0
+  activeFireModel: {fileID: 0}
+  inactiveFireModel: {fileID: 0}
+--- !u!1 &1275703118 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+  m_PrefabInternal: {fileID: 1226242886}
+--- !u!4 &1275703119 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
+  m_PrefabInternal: {fileID: 1226242886}
 --- !u!1001 &1356085034
 Prefab:
   m_ObjectHideFlags: 0
@@ -884,7 +1100,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 813822a1f0d834827a65c885d4461b8f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.050001
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 813822a1f0d834827a65c885d4461b8f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -912,7 +1128,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 813822a1f0d834827a65c885d4461b8f, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 813822a1f0d834827a65c885d4461b8f, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -943,7 +1159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1637679727
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -954,8 +1170,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.0107403, z: 10.862912}
-  m_Center: {x: 0, y: 1.0350294, z: 2.2901912}
+  m_Size: {x: 1, y: 2.0107403, z: 14.285049}
+  m_Center: {x: 0, y: 1.0350294, z: 4.0012608}
 --- !u!114 &1637679728
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ public class Player : MonoBehaviour {
 	// Coin-ing
 	public int coinsInHand = 0;
 	public GameObject payTarget;
-	private bool canPayCoin = false;
+	public bool canPayCoin = false;
 	private bool canCollectCoin = false;
 	public int coins = 0;
 	private bool coinActive = false;
@@ -51,12 +51,25 @@ public class Player : MonoBehaviour {
 	{
 		float inputV = Input.GetAxisRaw ("Vertical");
 
+		// handle case of initial coins and inactive main house
+		if (buildingScript != null && atMainHouse) {
+			// will initially be set to collect coins then when coins deplete the hasInitialcoins -> false but main house is still inactive
+			if (!buildingScript.hasInitialCoins && !buildingScript.active && coinsInHand > 0) {
+				canPayCoin = true;
+				Debug.Log("Should switch to paying");
+			}
+		}
+
 		if (!onLadder && !coinActive && inputV < 0) {
 			coinActive = true;
+			Debug.Log("Can pay coin???? " + canPayCoin);
 			if (canPayCoin) {
 				StartCoroutine (PayCoin ());
-			}else if (atMainHouse){
-				StartCoroutine (CollectCoin ());
+			} else {
+				// if at main house then can either collect coins or pay to build and activate
+				if (atMainHouse) {
+					StartCoroutine (CollectCoin ());
+				}
 			}
 		}
 	}
@@ -69,10 +82,6 @@ public class Player : MonoBehaviour {
 
 		float xMove = inputH;
 		float zMove = inputV;
-
-//		Vector3 dwn = transform.TransformDirection (-Vector3.forward);
-
-//		Debug.DrawRay (transform.position, dwn * rayLength, Color.green);
 		// Ladder
 		if (onLadder) {
 			zMove = inputV;
@@ -97,12 +106,16 @@ public class Player : MonoBehaviour {
 		if (go.layer == 9) {
 			Debug.Log ("At a building.... so money can move");
 			buildingScript = go.GetComponent<Building> ();
-			canPayCoin = true;
+			if (coinsInHand > 0) {
+				canPayCoin = true;
+			} else {
+				canPayCoin = false;
+			}
 			payTarget = go;
 			if (buildingScript.isMainHouse) {
 				atMainHouse = true;
 				// if main house is already activated
-				if (buildingScript.active) {
+				if (buildingScript.active || buildingScript.hasInitialCoins) {
 					canPayCoin = false;
 				}
 			}
@@ -126,22 +139,31 @@ public class Player : MonoBehaviour {
 				}
 			}
 		}
+
+		// if there's still an active coin, from a returned payment, then reset
+		coinActive = false;
 	}
 
-	IEnumerator PayCoin(){
-		yield return new WaitForSeconds(0.2f);
-		coinActive = false;
-		Debug.Log("Pay a coin");
-		payTarget.GetComponent<Building>().PayCoin();
+	IEnumerator PayCoin ()
+	{
+		yield return new WaitForSeconds (0.2f);
+		if (coinsInHand > 0) {
+			coinActive = false;
+			Debug.Log ("Pay a coin");
+			payTarget.GetComponent<Building> ().PayCoin ();
+			coinsInHand -= 1;
+		} else {
+			canPayCoin = false;
+		}
 	}
 	IEnumerator CollectCoin ()
 	{
 		yield return new WaitForSeconds (0.2f);
 		coinActive = false;
 		if (buildingScript != null) {
+			Debug.Log("Collecting a coin???");
 			int coinsCollected = buildingScript.CollectCoin ();
 			coinsInHand += coinsCollected;
-
 		}
 	}
 }

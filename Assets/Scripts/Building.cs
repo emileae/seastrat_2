@@ -6,14 +6,20 @@ public class Building : MonoBehaviour {
 
 	private Building buildingScript;
 
+	public Blackboard blackboard;
+
 	public bool isMainHouse = false;
 	public bool isFishingRodHouse = false;
 	public bool isHarpoonHouse = false;
 	public bool isFishingSpot = false;
+	public bool isSignalFire = false;
 
 	public GameObject fishingRodHouse;
 	public GameObject harpoonHouse;
 	private float houseZdist = 8.0f;
+
+	// Player sensing
+	private bool playerPresent = false;
 
 	public bool active = false;
 	public int costToBuild = 3;
@@ -28,9 +34,10 @@ public class Building : MonoBehaviour {
 	public GameObject hollowCoin;
 	public GameObject coin;
 	public int coinsAdded = 0;
-	private bool paid = false;
+	public bool paid = false;
 
 	// depositing coins for player to take
+	public bool hasInitialCoins = false;
 	public int coinsDeposited = 0;
 
 	// money
@@ -45,12 +52,20 @@ public class Building : MonoBehaviour {
 	// occupied by NPC - in case of fishing spot  & prob hunting spot, farms & maybe others
 	public bool occupied = false;
 
+	// Signal Fire
+	public GameObject activeFireModel;
+	public GameObject inactiveFireModel;
+
 	// Use this for initialization
 	void Start ()
 	{
 		buildingScript = gameObject.GetComponent<Building> ();
 		collider = gameObject.GetComponent<BoxCollider> ();
 		buildingBounds = collider.bounds;
+
+		if (blackboard == null) {
+			blackboard = GameObject.Find("Blackboard").GetComponent<Blackboard>();
+		}
 
 		if (!active && costToBuild > 0) {
 			for (int i = 0; i < costToBuild; i++) {
@@ -65,6 +80,7 @@ public class Building : MonoBehaviour {
 				GameObject clone = Instantiate (coin, new Vector3 (transform.position.x, buildingBounds.min.y - (1 * i), -3.1f), Quaternion.identity) as GameObject;
 				depositedCoinList.Add (clone);
 			}
+			hasInitialCoins = true;
 		}
 	}
 	
@@ -74,12 +90,11 @@ public class Building : MonoBehaviour {
 	}
 
 
-	// this code is replicated in HotSpot.cs
 	public void PayCoin ()
 	{
 		if (!active) {
 			if (coinsAdded < costToBuild) {
-				AddCoin();
+				AddCoin ();
 				if (coinsAdded == costToBuild) {
 					active = true;
 					paid = true;
@@ -89,15 +104,25 @@ public class Building : MonoBehaviour {
 					RemoveHollowCoins ();
 					RemoveCoins ();
 
+					// after building show the item cost without having to re-enter trigger
+					if (costOfItem > 0 && playerPresent) {
+						ShowCostOfItem ();
+					}
+
 					// add new houses if main house
 					if (isMainHouse) {
 						AddFishingRodHouse ();
 						AddHarpoonHouse ();
 					}
+//					if (isSignalFire){
+//						Debug.Log("Built Signal fire");
+//					}
 				}
 			}
 		} else if (active) {
+			Debug.Log("--- coinsAdded " + coinsAdded);
 			if (coinsAdded < costOfItem) {
+				Debug.Log("---------- AddCoin");
 				AddCoin();
 				if (coinsAdded == costOfItem) {
 					paid = true;
@@ -108,6 +133,12 @@ public class Building : MonoBehaviour {
 						clone.GetComponent<Item> ().buildingScript = buildingScript;
 						fishingRodList.Add(clone);
 						numRods += 1;
+					}
+					if (isSignalFire && paid){
+						Debug.Log("Paid to light Signal fire");
+						inactiveFireModel.SetActive(false);
+						activeFireModel.SetActive(true);
+						blackboard.activeSignalFire = true;
 					}
 
 					RemoveHollowCoins ();
@@ -133,6 +164,11 @@ public class Building : MonoBehaviour {
 	public int CollectCoin ()
 	{
 		if (coinsDeposited > 0) {
+			// once initial coins are gone then reset to original state of hasInitialCoins -> false
+			// the last coin is collected when coinsDeposited == 1 here
+			if (hasInitialCoins && coinsDeposited <= 1) {
+				hasInitialCoins = false;
+			}
 			Destroy (depositedCoinList [depositedCoinList.Count - 1]);// destroy game object first
 			depositedCoinList.RemoveAt ((depositedCoinList.Count - 1));// after destroying game objet then remove from list
 			coinsDeposited -= 1;
@@ -171,14 +207,27 @@ public class Building : MonoBehaviour {
 		}
 	}
 
-	void RemoveCoins(){
+	void RemoveCoins ()
+	{
+		Debug.Log ("coinList.Count: " + coinList.Count);
 		for (int i = 0; i < coinList.Count; i++) {
-			Destroy(coinList[i]);
+			Destroy (coinList [i]);
 			if (i == (coinList.Count - 1)) {
 				coinList.Clear ();
 			}
 		}
+
+		if (!paid && coinsAdded > 0) {
+			Debug.Log ("coinsAdded: " + coinsAdded);
+			for (int i = 0; i < coinsAdded; i++) {
+				// return coin to player
+				blackboard.playerScript.coinsInHand += 1;
+			}
+		}
+
 		coinsAdded = 0;
+		// finally if all coins have been returned or item is paid for then set paid to false
+		paid = false;
 	}
 
 	void AddFishingRodHouse(){
@@ -198,6 +247,7 @@ public class Building : MonoBehaviour {
 		GameObject go = col.gameObject;
 		if (go.tag == "Player") {
 			Debug.Log ("Show the cost to build object....");
+			playerPresent= true;
 			if (active) {
 				ShowCostOfItem ();
 			}
@@ -208,11 +258,18 @@ public class Building : MonoBehaviour {
 		GameObject go = col.gameObject;
 		if (go.tag == "Player") {
 			Debug.Log ("Hide the cost to build object....");
-			if (!active) {
-				if (!paid && coinsAdded > 0) {
-					RemoveCoins();
-				}
-			} else {
+			playerPresent = false;
+//			if (!active) {
+//				if (!paid && coinsAdded > 0) {
+//					RemoveCoins();
+//				}
+//			} else {
+//				HideCostOfItem ();
+//			}
+			if (!paid && coinsAdded > 0) {
+				RemoveCoins ();
+			}
+			if (active) {
 				HideCostOfItem ();
 			}
 		}
