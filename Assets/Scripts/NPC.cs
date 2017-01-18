@@ -10,7 +10,7 @@ public class NPC : MonoBehaviour {
 
 	public Blackboard blackboard;
 
-	private bool haveItem = false;
+	private bool haveItem = false;// haveItem --> employed / active i.e. can't do anything else
 	private GameObject item;
 	private Item itemScript;
 
@@ -53,6 +53,10 @@ public class NPC : MonoBehaviour {
 	private bool isFishing = false;
 	public int numFish = 0;
 
+	// Ladder
+	private bool onLadder = false;
+	public bool climbLadder = false;
+
 	// Use this for initialization
 	void Start () {
 		collider = gameObject.GetComponent<BoxCollider> ();
@@ -90,6 +94,10 @@ public class NPC : MonoBehaviour {
 			FishermanLogic();
 		}
 
+		if (!haveItem && onLadder) {
+			LadderLogic ();
+		}
+
 		transform.Translate(direction * walkSpeed * speedModifier * Time.deltaTime);
 	}
 
@@ -103,7 +111,7 @@ public class NPC : MonoBehaviour {
 			PickUpItem ();
 		}
 
-		// if payable and a waypoint... i.e. fishing spot, farm, boat building or whatever
+		// if payable and a waypoint... i.e. fishing spot, farm, boat building, ladderPayment point or whatever
 		if (go.layer == 9) {
 			buildingScript = go.GetComponent<Building> ();
 			if (isFisherman) {
@@ -132,6 +140,13 @@ public class NPC : MonoBehaviour {
 				atMainHouse = true;
 				Debug.Log("Passing Main House..........");
 			}
+			if (buildingScript.isLadder) {
+				Debug.Log("Check if NPC should climb ladder..........");
+				CheckLadderAvailability (buildingScript);
+			}
+			if (go.tag == "Ladder") {
+				onLadder = true;// now on actual ladder, not just ladder payment area
+			}
 		}
 	}
 
@@ -155,6 +170,14 @@ public class NPC : MonoBehaviour {
 				atMainHouse = false;
 				Debug.Log("Leaving Main House..........");
 			}
+		}
+	}
+
+	void MoveTowardsTarget(GameObject target){
+		if (target.transform.position.x > transform.position.x) {
+			direction = Vector3.right;
+		} else {
+			direction = -Vector3.right;
 		}
 	}
 
@@ -235,6 +258,23 @@ public class NPC : MonoBehaviour {
 				Debug.Log ("Go back to fishing spot");
 				ReturnToFishingSpot ();
 			}
+		}
+	}
+
+	void CheckLadderAvailability(Building buildingScript){
+		if (!haveItem && buildingScript.numToClimbLadder > 0) {
+			Debug.Log ("Go to climb ladder");
+			climbLadder = true;
+			buildingScript.numToClimbLadder -= 1;
+			if (buildingScript.Ladder != null) {
+				MoveTowardsTarget (buildingScript.Ladder);
+			}
+		}
+	}
+	void LadderLogic(){
+		Debug.Log ("execute ladder logic");
+		if (climbLadder) {
+			stop = true;
 		}
 	}
 

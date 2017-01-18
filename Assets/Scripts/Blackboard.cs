@@ -13,16 +13,10 @@ public class Blackboard : MonoBehaviour {
 	public List<float> platformTopPos = new List<float>();
 	public List<GameObject> platformMainHouses = new List<GameObject>();
 
-//	public GameObject platform1;
-//	public GameObject platformMainHouse1;
-//	public GameObject platform2;
-//	public GameObject platformMainHouse2;
-//	public GameObject platform3;
-//	public GameObject platformMainHouse3;
-//
-//	public float platform1TopPos;
-//	public float platform2TopPos;
-//	public float platform3TopPos;
+	// Buildings
+	// 		Ladder
+	public float ladderCoinYPos = 6.0f;
+
 
 	// fisherman
 	public int fishermanCapacity = 5;

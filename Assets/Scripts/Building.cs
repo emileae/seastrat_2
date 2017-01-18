@@ -13,6 +13,7 @@ public class Building : MonoBehaviour {
 	public bool isHarpoonHouse = false;
 	public bool isFishingSpot = false;
 	public bool isSignalFire = false;
+	public bool isLadder = false;
 
 	public GameObject fishingRodHouse;
 	public GameObject harpoonHouse;
@@ -55,6 +56,10 @@ public class Building : MonoBehaviour {
 	// Signal Fire
 	public GameObject activeFireModel;
 	public GameObject inactiveFireModel;
+
+	// Ladder
+	public int numToClimbLadder = 0;
+	public GameObject Ladder;
 
 	// Use this for initialization
 	void Start ()
@@ -122,8 +127,6 @@ public class Building : MonoBehaviour {
 				AddCoin();
 				if (coinsAdded == costOfItem) {
 					paid = true;
-
-					Debug.Log ("Paid in full... create Item");
 					if (isFishingRodHouse){
 						GameObject clone = Instantiate(fishingRod, new Vector3(transform.position.x + (1*numRods), transform.position.y, 0), Quaternion.identity) as GameObject;
 						clone.GetComponent<Item> ().buildingScript = buildingScript;
@@ -131,10 +134,12 @@ public class Building : MonoBehaviour {
 						numRods += 1;
 					}
 					if (isSignalFire && paid){
-						Debug.Log("Paid to light Signal fire");
 						inactiveFireModel.SetActive(false);
 						activeFireModel.SetActive(true);
 						blackboard.activeSignalFire = true;
+					}
+					if (isLadder) {
+						ChargeLadder ();
 					}
 
 					RemoveHollowCoins ();
@@ -150,7 +155,6 @@ public class Building : MonoBehaviour {
 	}
 
 	void AddCoin(){
-		Debug.Log("building.cs AddCoin() - - - - " + coinsAdded);
 		GameObject clone = Instantiate (coin, new Vector3 (transform.position.x, buildingBounds.max.y + 1 + (1 * coinsAdded), -0.1f), Quaternion.identity) as GameObject;
 		coinList.Add (clone);
 		coinsAdded += 1;
@@ -191,9 +195,16 @@ public class Building : MonoBehaviour {
 
 	void ShowCostOfItem ()
 	{
+		float coinYPos = transform.position.y;
+		if (isLadder) {
+			coinYPos = blackboard.ladderCoinYPos;
+		} else {
+			coinYPos = buildingBounds.max.y;
+		}
+			
 		if (hollowCoinList.Count <= 0 || hollowCoinList == null) {
 			for (int i = 0; i < costOfItem; i++) {
-				GameObject clone = Instantiate (hollowCoin, new Vector3 (transform.position.x, buildingBounds.max.y + 1 + (1 * i), 0), Quaternion.identity) as GameObject;
+				GameObject clone = Instantiate (hollowCoin, new Vector3 (transform.position.x, coinYPos + 1 + (1 * i), 0), Quaternion.identity) as GameObject;
 				hollowCoinList.Add (clone);
 			}
 		} else {
@@ -244,13 +255,19 @@ public class Building : MonoBehaviour {
 		numRods -= 1;
 	}
 
+	// Ladder
+	void ChargeLadder(){
+		Debug.Log ("Add credits to ladder");
+		numToClimbLadder += 1;
+	}
+
 	void OnTriggerEnter (Collider col)
 	{
 		GameObject go = col.gameObject;
 		if (go.tag == "Player") {
-			Debug.Log ("Show the cost to build object....");
 			playerPresent= true;
 			if (active) {
+				Debug.Log ("Show cost of item........");
 				ShowCostOfItem ();
 			}
 		}
