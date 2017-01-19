@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
 	public LayerMask groundLayer;
 
 	// ground check
-	public Transform isGrounded;
+	public bool onGround = false;
 	private float groundCheckRadius = 0.2f;
 
 	// ground raycast
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour {
 			}
 		}
 
-		if (!onLadder && !coinActive && inputV < 0) {
+		if (onGround && !coinActive && inputV < 0) {
 			coinActive = true;
 			Debug.Log("Can pay coin???? " + canPayCoin);
 			if (canPayCoin) {
@@ -144,12 +144,25 @@ public class Player : MonoBehaviour {
 		coinActive = false;
 	}
 
+	void OnCollisionEnter(Collision col){
+		GameObject go = col.gameObject;
+		if (go.tag == "Ground") {
+			onGround = true;
+		}
+	}
+	void OnCollisionExit(Collision col){
+		GameObject go = col.gameObject;
+		if (go.tag == "Ground") {
+			onGround = false;
+		}
+	}
+
 	IEnumerator PayCoin ()
 	{
 		yield return new WaitForSeconds (0.2f);
 		if (coinsInHand > 0 && payTarget != null) {
 			coinActive = false;
-			Debug.Log ("Pay a coin");
+			Debug.Log ("Player -> Pay a coin");
 			payTarget.GetComponent<Building> ().PayCoin ();
 			coinsInHand -= 1;
 		} else {

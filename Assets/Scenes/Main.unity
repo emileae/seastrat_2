@@ -130,7 +130,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 12
 --- !u!1 &465072424
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   platformMainHouses:
   - {fileID: 1017588785}
   - {fileID: 1450848159}
-  - {fileID: 0}
+  - {fileID: 1537005733}
   ladderCoinYPos: 6
   fishermanCapacity: 5
 --- !u!4 &556067054
@@ -411,7 +411,7 @@ Transform:
   - {fileID: 842772803}
   - {fileID: 1275703119}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 9
 --- !u!1001 &681092027
 Prefab:
   m_ObjectHideFlags: 0
@@ -512,7 +512,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  isGrounded: {fileID: 0}
+  onGround: 0
   onLadder: 0
   coinsInHand: 0
   payTarget: {fileID: 0}
@@ -580,6 +580,83 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &932467950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 932467951}
+  - 114: {fileID: 932467953}
+  - 65: {fileID: 932467952}
+  m_Layer: 9
+  m_Name: LadderPayment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &932467951
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 932467950}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.0861635, y: -26.10914, z: -120.38245}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1549406703}
+  m_RootOrder: 0
+--- !u!65 &932467952
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 932467950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.3730707, y: 1, z: 13.138902}
+  m_Center: {x: 0.185359, y: 0, z: 2.9597907}
+--- !u!114 &932467953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 932467950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65bcd816df59643248a60d4adeec6cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackboard: {fileID: 556067053}
+  isMainHouse: 0
+  isFishingRodHouse: 0
+  isHarpoonHouse: 0
+  isFishingSpot: 0
+  isSignalFire: 0
+  isLadder: 1
+  fishingRodHouse: {fileID: 0}
+  harpoonHouse: {fileID: 0}
+  active: 1
+  costToBuild: 0
+  costOfItem: 1
+  fishingRod: {fileID: 0}
+  hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
+  coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
+  coinsAdded: 0
+  paid: 0
+  hasInitialCoins: 0
+  coinsDeposited: 0
+  occupied: 0
+  activeFireModel: {fileID: 0}
+  inactiveFireModel: {fileID: 0}
+  numToClimbLadder: 0
+  Ladder: {fileID: 1997404571}
 --- !u!1001 &964551935
 Prefab:
   m_ObjectHideFlags: 0
@@ -630,6 +707,37 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &1003349651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1003349652}
+  m_Layer: 0
+  m_Name: LadderSet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1003349652
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1003349651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.786163, y: 29.969141, z: 121.47244}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 1257872900}
+  - {fileID: 1117262616}
+  - {fileID: 1786930964}
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
 --- !u!1 &1017588785
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +780,7 @@ Transform:
   m_Children:
   - {fileID: 1654263655}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 7
 --- !u!114 &1017588788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -888,12 +996,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1117262613}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.9, y: 40.2, z: 1.09}
+  m_LocalPosition: {x: -6.886163, y: 10.23086, z: -120.38245}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 1003349652}
+  m_RootOrder: 1
 --- !u!1 &1119956950 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 6ef8f499cd8984119a2239546a742f56, type: 3}
@@ -959,6 +1067,8 @@ MonoBehaviour:
   speedModifier: 1
   stop: 0
   reachedDock: 0
+  NPC: {fileID: 1000011307344722, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
+  passengers: 3
 --- !u!54 &1199287946
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1166,12 +1276,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1257872897}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.7, y: 3.86, z: 1.09}
+  m_LocalPosition: {x: -7.0861635, y: -26.10914, z: -120.38245}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1003349652}
+  m_RootOrder: 0
 --- !u!1 &1275703118 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: eee801622317745de9c7cfd8cf3eb19a, type: 3}
@@ -1217,7 +1327,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ecdad9ac00fb741be9607ab6e37318f1, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: ecdad9ac00fb741be9607ab6e37318f1, type: 3}
       propertyPath: m_Name
@@ -1311,13 +1421,13 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1450848159}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.7, y: 39.09, z: 8.56}
+  m_LocalPosition: {x: -23.6, y: 39.09, z: 8.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1250269576}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 10
 --- !u!1001 &1493652494
 Prefab:
   m_ObjectHideFlags: 0
@@ -1428,6 +1538,167 @@ Prefab:
     - {fileID: 9500000, guid: 813822a1f0d834827a65c885d4461b8f, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 813822a1f0d834827a65c885d4461b8f, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &1537005733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1537005736}
+  - 65: {fileID: 1537005735}
+  - 114: {fileID: 1537005734}
+  m_Layer: 9
+  m_Name: MainHouse (2)
+  m_TagString: PayCoin
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1537005734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1537005733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65bcd816df59643248a60d4adeec6cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackboard: {fileID: 556067053}
+  isMainHouse: 1
+  isFishingRodHouse: 0
+  isHarpoonHouse: 0
+  isFishingSpot: 0
+  isSignalFire: 0
+  isLadder: 0
+  fishingRodHouse: {fileID: 1000013943585644, guid: fc898c00ef9ca4d258f6f7afca2ffa9f,
+    type: 2}
+  harpoonHouse: {fileID: 1000013757380990, guid: 176edcc3361b243dc9dc1934f812fb64,
+    type: 2}
+  active: 0
+  costToBuild: 3
+  costOfItem: 2
+  fishingRod: {fileID: 0}
+  hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
+  coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
+  coinsAdded: 0
+  paid: 0
+  hasInitialCoins: 0
+  coinsDeposited: 9
+  occupied: 0
+  activeFireModel: {fileID: 0}
+  inactiveFireModel: {fileID: 0}
+  numToClimbLadder: 0
+  Ladder: {fileID: 0}
+--- !u!65 &1537005735
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1537005733}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.7298536, y: 7.5909653, z: 14.73511}
+  m_Center: {x: -0.15970373, y: 3.9850972, z: -3.3449826}
+--- !u!4 &1537005736
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1537005733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -31, y: 88.66, z: 8.56}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 1657096202}
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+--- !u!1 &1549406702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1549406703}
+  m_Layer: 0
+  m_Name: LadderSet (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1549406703
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1549406702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.8, y: 65.8, z: 121.47244}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 932467951}
+  - {fileID: 1976550233}
+  - {fileID: 1997404572}
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+--- !u!1001 &1622101764
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1537005736}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f4cd2be2e4de446c92f12c460a410c0, type: 2}
+    - target: {fileID: 100000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1001 &1637562125
 Prefab:
   m_ObjectHideFlags: 0
@@ -1465,7 +1736,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013520882324, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114000013863740292, guid: 423ecd2db33f44a0da4dff4df81f74f5,
         type: 2}
@@ -1484,6 +1755,10 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
   m_PrefabInternal: {fileID: 920994943}
+--- !u!4 &1657096202 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
+  m_PrefabInternal: {fileID: 1622101764}
 --- !u!1 &1677945177 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 6d102c38f329d45aea8da597b033f419, type: 3}
@@ -1563,13 +1838,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1786930962}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.7, y: 27.2, z: 9.5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.0861635, y: -2.7691402, z: -111.97244}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 1003349652}
+  m_RootOrder: 2
 --- !u!114 &1786930965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1620,7 +1895,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 565b629730c1d4dbfa2f3c916056982d, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 565b629730c1d4dbfa2f3c916056982d, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1638,6 +1913,83 @@ Prefab:
     - {fileID: 9500000, guid: 565b629730c1d4dbfa2f3c916056982d, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 565b629730c1d4dbfa2f3c916056982d, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &1976550232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1976550233}
+  - 114: {fileID: 1976550235}
+  - 65: {fileID: 1976550234}
+  m_Layer: 9
+  m_Name: LadderPayment (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1976550233
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1976550232}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.886163, y: 23.49, z: -120.38245}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1549406703}
+  m_RootOrder: 1
+--- !u!65 &1976550234
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1976550232}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.3730707, y: 1, z: 13.138902}
+  m_Center: {x: 0.185359, y: 0, z: 2.9597907}
+--- !u!114 &1976550235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1976550232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65bcd816df59643248a60d4adeec6cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackboard: {fileID: 556067053}
+  isMainHouse: 0
+  isFishingRodHouse: 0
+  isHarpoonHouse: 0
+  isFishingSpot: 0
+  isSignalFire: 0
+  isLadder: 1
+  fishingRodHouse: {fileID: 0}
+  harpoonHouse: {fileID: 0}
+  active: 1
+  costToBuild: 0
+  costOfItem: 1
+  fishingRod: {fileID: 0}
+  hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
+  coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
+  coinsAdded: 0
+  paid: 0
+  hasInitialCoins: 0
+  coinsDeposited: 0
+  occupied: 0
+  activeFireModel: {fileID: 0}
+  inactiveFireModel: {fileID: 0}
+  numToClimbLadder: 0
+  Ladder: {fileID: 1997404571}
 --- !u!1001 &1983451292
 Prefab:
   m_ObjectHideFlags: 0
@@ -1697,3 +2049,58 @@ Prefab:
     - {fileID: 9500000, guid: 6ef8f499cd8984119a2239546a742f56, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 6ef8f499cd8984119a2239546a742f56, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &1997404571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1997404572}
+  - 65: {fileID: 1997404574}
+  - 114: {fileID: 1997404573}
+  m_Layer: 0
+  m_Name: Ladder
+  m_TagString: Ladder
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1997404572
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1997404571}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.0861635, y: -2.7691402, z: -111.97244}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1549406703}
+  m_RootOrder: 2
+--- !u!114 &1997404573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1997404571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25eef0ecc56547bf9a5b7ae240c3203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topPlatformIndex: 2
+  bottomPlatformIndex: 1
+--- !u!65 &1997404574
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1997404571}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.3386774, y: 48.427414, z: 14.4853}
+  m_Center: {x: 0.16933918, y: 1.8480663, z: -4.9936447}

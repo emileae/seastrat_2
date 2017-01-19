@@ -11,6 +11,11 @@ public class Boat : MonoBehaviour {
 	public bool stop = false;
 	public bool reachedDock = false;
 
+	// NPC passengers
+	private NPC npcScript;
+	public GameObject NPC;
+	public int passengers = 3;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -39,6 +44,7 @@ public class Boat : MonoBehaviour {
 				Debug.Log("In correct position, so can stop at dock!@!@!@!@!");
 				if (reachedDock) {
 					stop = true;
+					SpawnNPC ();
 				}
 			}
 			// if going left and signal fire activated before reaching dock
@@ -46,6 +52,7 @@ public class Boat : MonoBehaviour {
 			{
 				if (reachedDock) {
 					stop = true;
+					SpawnNPC ();
 				}
 			}
 		}
@@ -65,5 +72,23 @@ public class Boat : MonoBehaviour {
 			reachedDock = false;
 		}
 	}
+
+	void SpawnNPC(){
+
+		Debug.Log ("Instantiate NPC!!!");
+		float xPos = blackboard.platformBounds [0].max.x;
+		float yPos = blackboard.platformBounds [0].max.y;
+		GameObject targetMainHouse = blackboard.platformMainHouses [0];
+		GameObject clone = Instantiate(NPC, new Vector3(xPos, yPos, 0), Quaternion.identity) as GameObject;
+		npcScript = clone.GetComponent<NPC> ();
+		npcScript.UpdatePlatform (0);
+		npcScript.MoveTowardsTarget (targetMainHouse);
+
+		// sink the ship!!!
+		Destroy (gameObject);
+
+	}
+
+
 
 }

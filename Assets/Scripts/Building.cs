@@ -97,6 +97,7 @@ public class Building : MonoBehaviour {
 
 	public void PayCoin ()
 	{
+		Debug.Log (".-.-.-Building PayCoin()...");
 		if (!active) {
 			if (coinsAdded < costToBuild) {
 				AddCoin ();
@@ -124,6 +125,7 @@ public class Building : MonoBehaviour {
 			}
 		} else if (active) {
 			if (coinsAdded < costOfItem) {
+				Debug.Log ("Adding a coin---- building");
 				AddCoin();
 				if (coinsAdded == costOfItem) {
 					paid = true;
@@ -197,14 +199,14 @@ public class Building : MonoBehaviour {
 	{
 		float coinYPos = transform.position.y;
 		if (isLadder) {
-			coinYPos = blackboard.ladderCoinYPos;
+			coinYPos = transform.position.y + blackboard.ladderCoinYPos;
 		} else {
 			coinYPos = buildingBounds.max.y;
 		}
 			
 		if (hollowCoinList.Count <= 0 || hollowCoinList == null) {
 			for (int i = 0; i < costOfItem; i++) {
-				GameObject clone = Instantiate (hollowCoin, new Vector3 (transform.position.x, coinYPos + 1 + (1 * i), 0), Quaternion.identity) as GameObject;
+				GameObject clone = Instantiate (hollowCoin, new Vector3 (transform.position.x, coinYPos + (1 * i), 0), Quaternion.identity) as GameObject;
 				hollowCoinList.Add (clone);
 			}
 		} else {
@@ -257,7 +259,7 @@ public class Building : MonoBehaviour {
 
 	// Ladder
 	void ChargeLadder(){
-		Debug.Log ("Add credits to ladder");
+		Debug.Log ("Add credits to ladder----------");
 		numToClimbLadder += 1;
 	}
 

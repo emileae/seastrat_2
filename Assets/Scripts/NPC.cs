@@ -63,11 +63,18 @@ public class NPC : MonoBehaviour {
 		collider = gameObject.GetComponent<BoxCollider> ();
 		npcBounds = collider.bounds;
 
+		if (blackboard == null) {
+			blackboard = GameObject.Find ("Blackboard").GetComponent<Blackboard>();
+		}
+
 		if (currentPlatform != null) {
 			platformScript = currentPlatform.GetComponent<Platform>();
 			platformIndex = platformScript.platformIndex;
 			mainHouse = blackboard.platformMainHouses[platformIndex];
 			mainHouseScript = mainHouse.GetComponent<Building> ();
+			Debug.Log ("NPC starting platform index: " + platformIndex);
+			Debug.Log ("blackboard.platformTopPos.Count: " + blackboard.platformTopPos.Count);
+			Debug.Log ("Starting NPC POS: " + blackboard.platformTopPos[platformIndex]);
 			transform.position = new Vector3 (transform.position.x, blackboard.platformTopPos[platformIndex], transform.position.z);
 		}
 	}
@@ -181,7 +188,7 @@ public class NPC : MonoBehaviour {
 		}
 	}
 
-	void MoveTowardsTarget(GameObject target){
+	public void MoveTowardsTarget(GameObject target){
 		if (target.transform.position.x > transform.position.x) {
 			Debug.Log("target is on right..." + platformIndex);
 			direction = Vector3.right;
@@ -274,7 +281,7 @@ public class NPC : MonoBehaviour {
 		}
 	}
 
-	void UpdatePlatform(int idx){
+	public void UpdatePlatform(int idx){
 		platformIndex = idx;
 		currentPlatform = blackboard.platforms[idx];
 		platformScript = blackboard.platformScripts[idx];

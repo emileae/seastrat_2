@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
+// NOTES
+// The blackboard execution order is set under Edit -> Project Settings -> Script Execution Order ... to run before "Default Time" 
+// so that all lists and settings are in place for the other scripts to reference
+
 public class Blackboard : MonoBehaviour {
 
 	public Player playerScript;
