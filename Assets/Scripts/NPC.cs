@@ -10,7 +10,7 @@ public class NPC : MonoBehaviour {
 
 	public Blackboard blackboard;
 
-	private bool haveItem = false;// haveItem --> employed / active i.e. can't do anything else
+	public bool haveItem = false;// haveItem --> employed / active i.e. can't do anything else
 	private GameObject item;
 	private Item itemScript;
 
@@ -54,7 +54,7 @@ public class NPC : MonoBehaviour {
 	public int numFish = 0;
 
 	// Ladder
-	private bool onLadder = false;
+	public bool onLadder = false;
 	public bool climbLadder = false;
 
 	// Use this for initialization
@@ -95,6 +95,7 @@ public class NPC : MonoBehaviour {
 		}
 
 		if (!haveItem && onLadder) {
+			Debug.Log ("!have item && onLAdder");
 			LadderLogic ();
 		}
 
@@ -144,6 +145,7 @@ public class NPC : MonoBehaviour {
 				Debug.Log("Check if NPC should climb ladder..........");
 				CheckLadderAvailability (buildingScript);
 			}
+			Debug.Log ("go.tag --> " + go.tag);
 			if (go.tag == "Ladder") {
 				onLadder = true;// now on actual ladder, not just ladder payment area
 			}
