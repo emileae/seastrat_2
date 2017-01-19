@@ -147,7 +147,7 @@ public class Player : MonoBehaviour {
 	IEnumerator PayCoin ()
 	{
 		yield return new WaitForSeconds (0.2f);
-		if (coinsInHand > 0) {
+		if (coinsInHand > 0 && payTarget != null) {
 			coinActive = false;
 			Debug.Log ("Pay a coin");
 			payTarget.GetComponent<Building> ().PayCoin ();

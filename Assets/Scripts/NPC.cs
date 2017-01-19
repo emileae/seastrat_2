@@ -21,7 +21,7 @@ public class NPC : MonoBehaviour {
 	public GameObject leftSensor;
 	public GameObject rightSensor;
 
-	// information about the NPCs platform
+	// PLATFORM information about the NPCs platform - if this changes then need to update the function that updates the paltform... lower down ins cript
 	public GameObject currentPlatform;
 	private Platform platformScript;
 	private int platformIndex = 0;
@@ -54,6 +54,7 @@ public class NPC : MonoBehaviour {
 	public int numFish = 0;
 
 	// Ladder
+	private GameObject Ladder = null;
 	public bool onLadder = false;
 	public bool climbLadder = false;
 
@@ -75,17 +76,20 @@ public class NPC : MonoBehaviour {
 	void Update ()
 	{
 
-		if (!Physics.CheckSphere (leftSensor.transform.position, 0.5f, groundLayer)) {
+	// climbLadder overrides this since ladder collider may have a small gap from platform
+		if (!Physics.CheckSphere (leftSensor.transform.position, 0.5f, groundLayer) && !climbLadder) {
 			Debug.Log ("Left Sphere edge");
 			direction = Vector3.right;
 		}
-		if (!Physics.CheckSphere (rightSensor.transform.position, 0.5f, groundLayer)) {
+		if (!Physics.CheckSphere (rightSensor.transform.position, 0.5f, groundLayer) && !climbLadder) {
 			Debug.Log ("Right Sphere edge");
 			direction = -Vector3.right;
 		}
 
 		if (stop) {
 			speedModifier = 0;
+		} else {
+			speedModifier = 1;
 		}
 
 		// going to fishing spot to catch fish
@@ -105,6 +109,7 @@ public class NPC : MonoBehaviour {
 	void OnTriggerEnter (Collider col)
 	{
 		GameObject go = col.gameObject;
+
 		// layer 10 == item layer
 		if (go.layer == 10 && !haveItem) {
 			Debug.Log ("Pick up the item!!!!!");
@@ -112,7 +117,7 @@ public class NPC : MonoBehaviour {
 			PickUpItem ();
 		}
 
-		// if payable and a waypoint... i.e. fishing spot, farm, boat building, ladderPayment point or whatever
+		// Payable
 		if (go.layer == 9) {
 			buildingScript = go.GetComponent<Building> ();
 			if (isFisherman) {
@@ -142,13 +147,14 @@ public class NPC : MonoBehaviour {
 				Debug.Log("Passing Main House..........");
 			}
 			if (buildingScript.isLadder) {
-				Debug.Log("Check if NPC should climb ladder..........");
+				Debug.Log("Check if NPC should climb ladder.......... " + platformIndex);
 				CheckLadderAvailability (buildingScript);
 			}
-			Debug.Log ("go.tag --> " + go.tag);
-			if (go.tag == "Ladder") {
-				onLadder = true;// now on actual ladder, not just ladder payment area
-			}
+		}
+
+		// Ladder
+		if (go.tag == "Ladder") {
+			onLadder = true;// now on actual ladder, not just ladder payment area
 		}
 	}
 
@@ -177,8 +183,10 @@ public class NPC : MonoBehaviour {
 
 	void MoveTowardsTarget(GameObject target){
 		if (target.transform.position.x > transform.position.x) {
+			Debug.Log("target is on right..." + platformIndex);
 			direction = Vector3.right;
 		} else {
+			Debug.Log("target is on left..." + platformIndex);
 			direction = -Vector3.right;
 		}
 	}
@@ -227,7 +235,8 @@ public class NPC : MonoBehaviour {
 		speedModifier = 1;
 	}
 
-	void FishermanLogic(){
+	void FishermanLogic ()
+	{
 		if (goFish && !isFishing && atFishingSpot) {
 			if (numFish >= blackboard.fishermanCapacity) {
 				Debug.Log ("Take Fish to market.....");
@@ -257,26 +266,87 @@ public class NPC : MonoBehaviour {
 					StartCoroutine (Sell ());
 				}
 			} else if (numFish <= 0) {
-				Debug.Log ("Go back to fishing spot");
-				ReturnToFishingSpot ();
+				Debug.Log ("Go back to fishing spot if it exists");
+				if (homeFishingSpot != null) {
+					ReturnToFishingSpot ();
+				}
 			}
 		}
 	}
 
+	void UpdatePlatform(int idx){
+		platformIndex = idx;
+		currentPlatform = blackboard.platforms[idx];
+		platformScript = blackboard.platformScripts[idx];
+		mainHouse = blackboard.platformMainHouses[idx];
+		mainHouseScript = mainHouse.GetComponent<Building>();
+	}
+
 	void CheckLadderAvailability(Building buildingScript){
 		if (!haveItem && buildingScript.numToClimbLadder > 0) {
-			Debug.Log ("Go to climb ladder");
+			Debug.Log ("Go to climb ladder " + platformIndex);
 			climbLadder = true;
 			buildingScript.numToClimbLadder -= 1;
+			Ladder = buildingScript.Ladder;
 			if (buildingScript.Ladder != null) {
 				MoveTowardsTarget (buildingScript.Ladder);
 			}
 		}
 	}
-	void LadderLogic(){
-		Debug.Log ("execute ladder logic");
-		if (climbLadder) {
+	void LadderLogic ()
+	{
+		Debug.Log ("execute ladder logic " + platformIndex);
+		if (climbLadder && Ladder != null) {
 			stop = true;
+			Ladder ladderScript = Ladder.GetComponent<Ladder> ();
+			int targetPlatformIndex = 0;
+
+			bool goingUp = false;
+			bool goingDown = false;
+
+			if (platformIndex > ladderScript.bottomPlatformIndex) {
+				Debug.Log ("Climb down ladder " + platformIndex);
+				direction = -Vector3.up;
+				stop = false;
+				goingUp = false;
+				goingDown = true;
+				targetPlatformIndex = ladderScript.bottomPlatformIndex;
+			} else {
+				Debug.Log ("Climb up ladder " + platformIndex);
+				direction = Vector3.up;
+				stop = false;
+				goingUp = true;
+				goingDown = false;
+				targetPlatformIndex = ladderScript.topPlatformIndex;
+			}
+
+			Debug.Log ("Target platform index: " + targetPlatformIndex);
+
+			if (goingUp && transform.position.y >= blackboard.platformTopPos [targetPlatformIndex]) {
+				ExitLadder(targetPlatformIndex);
+			}else if (goingDown && transform.position.y <= blackboard.platformTopPos [targetPlatformIndex]){
+				ExitLadder(targetPlatformIndex);
+			}
+
+		}
+	}
+	void ExitLadder (int targetPlatformIndex)
+	{
+		UpdatePlatform(targetPlatformIndex);
+		Debug.Log ("Stop at target end of ladder platform index: " + targetPlatformIndex);
+		onLadder = false;
+		climbLadder = false;
+		stop = true;
+		// choose direction to move off ladder
+		if (transform.position.x > blackboard.platformBounds [targetPlatformIndex].max.x) {
+			direction = -Vector3.right;
+			stop = false;
+		} else if (transform.position.x < blackboard.platformBounds [targetPlatformIndex].min.x) {
+			direction = Vector3.right;
+			stop = false;
+		} else {
+			MoveTowardsTarget(mainHouse);
+			stop = false;
 		}
 	}
 
