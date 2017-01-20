@@ -59,23 +59,30 @@ public class NPC : MonoBehaviour {
 	public bool climbLadder = false;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		collider = gameObject.GetComponent<BoxCollider> ();
 		npcBounds = collider.bounds;
 
 		if (blackboard == null) {
-			blackboard = GameObject.Find ("Blackboard").GetComponent<Blackboard>();
+			blackboard = GameObject.Find ("Blackboard").GetComponent<Blackboard> ();
 		}
 
 		if (currentPlatform != null) {
-			platformScript = currentPlatform.GetComponent<Platform>();
+			platformScript = currentPlatform.GetComponent<Platform> ();
 			platformIndex = platformScript.platformIndex;
-			mainHouse = blackboard.platformMainHouses[platformIndex];
+			mainHouse = blackboard.platformMainHouses [platformIndex];
 			mainHouseScript = mainHouse.GetComponent<Building> ();
 			Debug.Log ("NPC starting platform index: " + platformIndex);
 			Debug.Log ("blackboard.platformTopPos.Count: " + blackboard.platformTopPos.Count);
-			Debug.Log ("Starting NPC POS: " + blackboard.platformTopPos[platformIndex]);
-			transform.position = new Vector3 (transform.position.x, blackboard.platformTopPos[platformIndex], transform.position.z);
+			Debug.Log ("Starting NPC POS: " + blackboard.platformTopPos [platformIndex]);
+			transform.position = new Vector3 (transform.position.x, blackboard.platformTopPos [platformIndex], transform.position.z);
+		} else {
+			UpdatePlatform (platformIndex);
+		}
+
+		if (mainHouse) {
+			MoveTowardsTarget (mainHouse);
 		}
 	}
 
@@ -281,8 +288,10 @@ public class NPC : MonoBehaviour {
 		}
 	}
 
-	public void UpdatePlatform(int idx){
+	void UpdatePlatform(int idx){
 		platformIndex = idx;
+		Debug.Log("idx: " + idx);
+		Debug.Log("blackboard??? " + blackboard.platforms[idx]);
 		currentPlatform = blackboard.platforms[idx];
 		platformScript = blackboard.platformScripts[idx];
 		mainHouse = blackboard.platformMainHouses[idx];

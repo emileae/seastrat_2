@@ -1,9 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Building.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Boat.cs">
     <Files>
-      <File FileName="Assets/Scripts/Building.cs" Line="65" Column="24" />
-      <File FileName="Assets/Scripts/Player.cs" Line="68" Column="5" />
+      <File FileName="Assets/Scripts/NPC.cs" Line="106" Column="79" />
+      <File FileName="Assets/Scripts/Building.cs" Line="139" Column="42" />
+      <File FileName="Assets/Scripts/Player.cs" Line="149" Column="28" />
+      <File FileName="Assets/Scripts/Ladder.cs" Line="8" Column="1" />
+      <File FileName="Assets/Scripts/Blackboard.cs" Line="10" Column="25" />
+      <File FileName="Assets/Scripts/Boat.cs" Line="11" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

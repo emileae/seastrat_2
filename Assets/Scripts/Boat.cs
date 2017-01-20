@@ -80,9 +80,9 @@ public class Boat : MonoBehaviour {
 		float yPos = blackboard.platformBounds [0].max.y;
 		GameObject targetMainHouse = blackboard.platformMainHouses [0];
 		GameObject clone = Instantiate(NPC, new Vector3(xPos, yPos, 0), Quaternion.identity) as GameObject;
-		npcScript = clone.GetComponent<NPC> ();
-		npcScript.UpdatePlatform (0);
-		npcScript.MoveTowardsTarget (targetMainHouse);
+//		npcScript = clone.GetComponent<NPC> ();
+//		npcScript.UpdatePlatform (0);
+//		npcScript.MoveTowardsTarget (targetMainHouse);
 
 		// sink the ship!!!
 		Destroy (gameObject);
