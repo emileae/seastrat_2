@@ -10,7 +10,13 @@ public class Blackboard : MonoBehaviour {
 
 	public Player playerScript;
 
+	// Sea
+	public float seaYPos = 0;
+
+	// Signal fire and boat
 	public bool activeSignalFire = false;
+	public GameObject signalFire = null;
+	public Building signalFireScript = null;
 	public GameObject dock;
 
 	public List<GameObject> platforms = new List<GameObject>();
@@ -47,5 +53,15 @@ public class Blackboard : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void SetSignalFireScript(){
+		if (signalFire){
+			signalFireScript = signalFire.GetComponent<Building> ();
+		}
+	}
+	public void ExtinguishSignalFire(){
+		Debug.Log ("Turn off signal fire -> false and set model to inactive");
+		signalFireScript.DeactivateSignalFire ();
 	}
 }

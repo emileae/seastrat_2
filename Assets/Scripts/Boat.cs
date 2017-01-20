@@ -12,13 +12,19 @@ public class Boat : MonoBehaviour {
 	public bool reachedDock = false;
 
 	// NPC passengers
+	private bool spawningNPC = false;
 	private NPC npcScript;
 	public GameObject NPC;
 	public int passengers = 3;
 
 	// Use this for initialization
 	void Start () {
-	
+		if (blackboard == null) {
+			blackboard = GameObject.Find ("Blackboard").GetComponent<Blackboard>();
+		}
+		// set boat position
+		transform.position = new Vector3(transform.position.x, blackboard.seaYPos, blackboard.platformBounds[0].min.z);
+
 	}
 	
 	// Update is called once per frame
@@ -44,7 +50,10 @@ public class Boat : MonoBehaviour {
 				Debug.Log("In correct position, so can stop at dock!@!@!@!@!");
 				if (reachedDock) {
 					stop = true;
-					SpawnNPC ();
+					if (!spawningNPC && passengers > 0) {
+						spawningNPC = true;
+						StartCoroutine(SpawnNPC ());
+					}
 				}
 			}
 			// if going left and signal fire activated before reaching dock
@@ -52,7 +61,10 @@ public class Boat : MonoBehaviour {
 			{
 				if (reachedDock) {
 					stop = true;
-					SpawnNPC ();
+					if (!spawningNPC && passengers > 0) {
+						spawningNPC = true;
+						StartCoroutine(SpawnNPC ());
+					}
 				}
 			}
 		}
@@ -73,19 +85,24 @@ public class Boat : MonoBehaviour {
 		}
 	}
 
-	void SpawnNPC(){
+	IEnumerator SpawnNPC(){
+
+		yield return new WaitForSeconds (2.0f);
 
 		Debug.Log ("Instantiate NPC!!!");
 		float xPos = blackboard.platformBounds [0].max.x;
 		float yPos = blackboard.platformBounds [0].max.y;
 		GameObject targetMainHouse = blackboard.platformMainHouses [0];
 		GameObject clone = Instantiate(NPC, new Vector3(xPos, yPos, 0), Quaternion.identity) as GameObject;
-//		npcScript = clone.GetComponent<NPC> ();
-//		npcScript.UpdatePlatform (0);
-//		npcScript.MoveTowardsTarget (targetMainHouse);
 
-		// sink the ship!!!
-		Destroy (gameObject);
+		passengers -= 1;
+		spawningNPC = false;
+
+		if (passengers <= 0) {
+			// sink the ship!!!
+			Destroy (gameObject);
+			blackboard.ExtinguishSignalFire ();
+		}
 
 	}
 

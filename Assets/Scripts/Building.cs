@@ -87,6 +87,14 @@ public class Building : MonoBehaviour {
 			}
 			hasInitialCoins = true;
 		}
+
+		if (isSignalFire) {
+			if (blackboard.signalFire == null) {
+				blackboard.signalFire = gameObject;
+				blackboard.SetSignalFireScript ();
+			}
+		}
+
 	}
 	
 	// Update is called once per frame
@@ -136,9 +144,7 @@ public class Building : MonoBehaviour {
 						numRods += 1;
 					}
 					if (isSignalFire && paid){
-						inactiveFireModel.SetActive(false);
-						activeFireModel.SetActive(true);
-						blackboard.activeSignalFire = true;
+						ActivateSignalFire ();
 					}
 					if (isLadder) {
 						ChargeLadder ();
@@ -261,6 +267,17 @@ public class Building : MonoBehaviour {
 	void ChargeLadder(){
 		Debug.Log ("Add credits to ladder----------");
 		numToClimbLadder += 1;
+	}
+
+	public void ActivateSignalFire(){
+		inactiveFireModel.SetActive(false);
+		activeFireModel.SetActive(true);
+		blackboard.activeSignalFire = true;
+	}
+	public void DeactivateSignalFire(){
+		inactiveFireModel.SetActive(true);
+		activeFireModel.SetActive(false);
+		blackboard.activeSignalFire = false;
 	}
 
 	void OnTriggerEnter (Collider col)
