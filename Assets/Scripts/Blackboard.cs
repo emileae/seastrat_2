@@ -25,6 +25,9 @@ public class Blackboard : MonoBehaviour {
 	public List<Bounds> platformBounds = new List<Bounds>();
 	public List<GameObject> platformMainHouses = new List<GameObject>();
 
+	// Enemy Attack
+	public bool pushMenRight = false;
+
 	// Buildings
 	// 		Ladder
 	public float ladderCoinYPos = 6.0f;

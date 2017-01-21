@@ -93,11 +93,20 @@ public class NPC : MonoBehaviour {
 	// climbLadder overrides this since ladder collider may have a small gap from platform
 		if (!Physics.CheckSphere (leftSensor.transform.position, 0.5f, groundLayer) && !climbLadder) {
 			Debug.Log ("Left Sphere edge");
-			direction = Vector3.right;
+			if (blackboard.pushMenRight) {
+				direction += new Vector3 (0, -1, 0);
+			} else {
+				direction = Vector3.right;
+			}
+
 		}
 		if (!Physics.CheckSphere (rightSensor.transform.position, 0.5f, groundLayer) && !climbLadder) {
 			Debug.Log ("Right Sphere edge");
-			direction = -Vector3.right;
+			if (blackboard.pushMenRight) {
+				direction += new Vector3 (0, -1, 0);
+			} else {
+				direction = -Vector3.right;
+			}
 		}
 
 		if (stop) {
@@ -115,6 +124,10 @@ public class NPC : MonoBehaviour {
 		if (!haveItem && onLadder) {
 			Debug.Log ("!have item && onLAdder");
 			LadderLogic ();
+		}
+
+		if (blackboard.pushMenRight) {
+			direction -= new Vector3 (-0.5f, 0, 0);
 		}
 
 		transform.Translate(direction * walkSpeed * speedModifier * Time.deltaTime);

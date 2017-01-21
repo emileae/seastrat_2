@@ -16,7 +16,11 @@ public class Enemy : MonoBehaviour {
 	public float sinkSpeed = 3.0f;
 
 	// Attack
+	private bool busyAttacking = false;
 	private bool attacking = false;
+	public float riseDistance = 5.0f;
+	public float jumpSpeed = 6.0f;
+	public float dropSpeed = 6.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -37,13 +41,16 @@ public class Enemy : MonoBehaviour {
 			speed = floatSpeed;
 		}
 		if (attack) {
+			busyAttacking = true;
+			Attack ();
 			if (!attacking) {
 				attacking = true;
-				StartCoroutine (Attack ());
+				blackboard.pushMenRight = false;
+				StartCoroutine (StartAttack ());
 			}
 		}
 
-		if (transform.position.y >= blackboard.seaYPos) {
+		if (transform.position.y >= blackboard.seaYPos && !busyAttacking) {
 			rise = false;
 			direction = Vector3.zero;
 		}
@@ -52,11 +59,40 @@ public class Enemy : MonoBehaviour {
 
 	}
 
-	IEnumerator Attack(){
+	void ResetPosition(){
+		transform.position = new Vector3 (transform.position.x, blackboard.seaYPos, transform.position.z);
+	}
+
+	void Attack(){
+		if (transform.position.y >= riseDistance) {
+			direction = -Vector3.up;
+			speed = dropSpeed;
+		}
+
+		if (transform.position.y < blackboard.seaYPos) {
+			direction = Vector3.zero;
+			// reset back to sea level... otherwise the direction will stay at VEctor3.zero
+			ResetPosition ();
+		}
+	}
+
+	IEnumerator StartAttack(){
 		yield return new WaitForSeconds(3.0f);
+
+		direction = Vector3.up;
+		speed = jumpSpeed;
+
+		StartCoroutine (HurtMen());
+
 
 		Debug.Log ("Attack!!!!!!");
 		attacking = false;
+	}
+
+	IEnumerator HurtMen(){
+		yield return new WaitForSeconds(1.0f);
+
+		blackboard.pushMenRight = true;
 	}
 
 }
