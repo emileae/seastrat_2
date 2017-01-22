@@ -94,7 +94,7 @@ public class NPC : MonoBehaviour {
 		if (!Physics.CheckSphere (leftSensor.transform.position, 0.5f, groundLayer) && !climbLadder) {
 			Debug.Log ("Left Sphere edge");
 			if (blackboard.pushMenRight) {
-				direction += new Vector3 (0, -1, 0);
+				direction += new Vector3 (0, -0.1f, 0);
 			} else {
 				direction = Vector3.right;
 			}
@@ -103,7 +103,7 @@ public class NPC : MonoBehaviour {
 		if (!Physics.CheckSphere (rightSensor.transform.position, 0.5f, groundLayer) && !climbLadder) {
 			Debug.Log ("Right Sphere edge");
 			if (blackboard.pushMenRight) {
-				direction += new Vector3 (0, -1, 0);
+				direction += new Vector3 (0, -0.1f, 0);
 			} else {
 				direction = -Vector3.right;
 			}

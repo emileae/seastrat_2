@@ -82,15 +82,16 @@ public class Enemy : MonoBehaviour {
 		direction = Vector3.up;
 		speed = jumpSpeed;
 
-		StartCoroutine (HurtMen());
+		blackboard.pushMenRight = false;
+		StartCoroutine (MakeWave());
 
 
 		Debug.Log ("Attack!!!!!!");
 		attacking = false;
 	}
 
-	IEnumerator HurtMen(){
-		yield return new WaitForSeconds(1.0f);
+	IEnumerator MakeWave(){
+		yield return new WaitForSeconds(2.8f);
 
 		blackboard.pushMenRight = true;
 	}
