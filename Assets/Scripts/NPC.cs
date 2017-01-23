@@ -3,10 +3,13 @@ using System.Collections;
 
 public class NPC : MonoBehaviour {
 
+	// weather & general attacks
+	private float waveForce = 0.1f;
+
 	// NPC types
 	public GameObject unemployedModel;
 	public GameObject fishermanModel;
-	public GameObject harpoonModel;
+	public GameObject harpoonmanModel;
 
 	public Blackboard blackboard;
 
@@ -53,6 +56,11 @@ public class NPC : MonoBehaviour {
 	private bool isFishing = false;
 	public int numFish = 0;
 
+	//harpoonman
+	private float waveRessistance = 0.5f;
+	private bool withinAttackRange = false;
+	private bool busyAttacking = false;
+
 	// Ladder
 	private GameObject Ladder = null;
 	public bool onLadder = false;
@@ -73,9 +81,6 @@ public class NPC : MonoBehaviour {
 			platformIndex = platformScript.platformIndex;
 			mainHouse = blackboard.platformMainHouses [platformIndex];
 			mainHouseScript = mainHouse.GetComponent<Building> ();
-			Debug.Log ("NPC starting platform index: " + platformIndex);
-			Debug.Log ("blackboard.platformTopPos.Count: " + blackboard.platformTopPos.Count);
-			Debug.Log ("Starting NPC POS: " + blackboard.platformTopPos [platformIndex]);
 			transform.position = new Vector3 (transform.position.x, blackboard.platformTopPos [platformIndex], transform.position.z);
 		} else {
 			UpdatePlatform (platformIndex);
@@ -94,13 +99,13 @@ public class NPC : MonoBehaviour {
 		if (!Physics.CheckSphere (leftSensor.transform.position, 0.5f, groundLayer) && !climbLadder) {
 			Debug.Log ("Left Sphere edge");
 			if (blackboard.pushMenRight) {
-				direction += new Vector3 (0, -0.1f, 0);
+				direction += new Vector3 (0, -waveForce * waveRessistance, 0);
 			} else {
 				direction = Vector3.right;
 			}
 
 		}
-		if (!Physics.CheckSphere (rightSensor.transform.position, 0.5f, groundLayer) && !climbLadder) {
+		if (!Physics.CheckSphere (rightSensor.transform.position, -waveForce * waveRessistance, groundLayer) && !climbLadder) {
 			Debug.Log ("Right Sphere edge");
 			if (blackboard.pushMenRight) {
 				direction += new Vector3 (0, -0.1f, 0);
@@ -121,8 +126,13 @@ public class NPC : MonoBehaviour {
 			FishermanLogic();
 		}
 
+		if (isHarpoonman) {
+			if (blackboard.beingAttacked) {
+				GoToEnemy ();
+			}
+		}
+
 		if (!haveItem && onLadder) {
-			Debug.Log ("!have item && onLAdder");
 			LadderLogic ();
 		}
 
@@ -139,7 +149,6 @@ public class NPC : MonoBehaviour {
 
 		// layer 10 == item layer
 		if (go.layer == 10 && !haveItem) {
-			Debug.Log ("Pick up the item!!!!!");
 			item = go;
 			PickUpItem ();
 		}
@@ -159,7 +168,6 @@ public class NPC : MonoBehaviour {
 						goFish = true;
 					}
 				} else {
-					Debug.Log ("should STOP!!!");
 					// if moving over home fishing spot and have no fish, then go fishing
 					if (go == homeFishingSpot && numFish <= 0 && isFisherman) {
 						Debug.Log ("STOP!!!");
@@ -174,9 +182,13 @@ public class NPC : MonoBehaviour {
 				Debug.Log("Passing Main House..........");
 			}
 			if (buildingScript.isLadder) {
-				Debug.Log("Check if NPC should climb ladder.......... " + platformIndex);
 				CheckLadderAvailability (buildingScript);
 			}
+		}
+
+		// Enemy layer
+		if(go.layer == 11){
+			withinAttackRange = true;
 		}
 
 		// Ladder
@@ -206,6 +218,12 @@ public class NPC : MonoBehaviour {
 				Debug.Log("Leaving Main House..........");
 			}
 		}
+
+		// Enemy layer
+		if(go.layer == 11){
+			withinAttackRange = false;
+		}
+
 	}
 
 	public void MoveTowardsTarget(GameObject target){
@@ -219,7 +237,6 @@ public class NPC : MonoBehaviour {
 	}
 
 	void PickUpItem(){
-		Debug.Log ("Picking up the item");
 		itemScript = item.GetComponent<Item> ();
 		if (itemScript.fishingRod) {
 			isFisherman = true;
@@ -230,7 +247,40 @@ public class NPC : MonoBehaviour {
 			itemScript.buildingScript.RemoveFishingRod();
 			Destroy(item);
 		}
+		if (itemScript.harpoon) {
+			isHarpoonman = true;
+			unemployedModel.SetActive (false);
+			harpoonmanModel.SetActive (true);
+			haveItem = true;
+			// Destroy the rod
+			itemScript.buildingScript.RemoveHarpoon();
+			Destroy(item);
+		}
 	}
+
+	// HARPOONING
+
+	void GoToEnemy(){
+		Debug.Log ("Go To ENEMY!!!!!!!");
+		MoveTowardsTarget (blackboard.attackingEnemy);
+		if (withinAttackRange) {
+			stop = true;
+			Debug.Log ("Attack!!!!!!");
+			if (!busyAttacking) {
+				busyAttacking = true;
+				StartCoroutine (AttackEnemy ());
+			}
+		} else {
+			stop = false;
+		}
+	}
+	IEnumerator AttackEnemy(){
+		yield return new WaitForSeconds(2.0f);
+		Debug.Log ("Throw Harpoon!@!@!@!@s ---------|-|->");
+		busyAttacking = false;
+	}
+
+	// FISHING
 
 	IEnumerator GoFish(){
 		yield return new WaitForSeconds(1.0f);
@@ -300,6 +350,8 @@ public class NPC : MonoBehaviour {
 			}
 		}
 	}
+
+	// LADDERING
 
 	void UpdatePlatform(int idx){
 		platformIndex = idx;

@@ -31,6 +31,11 @@ public class Building : MonoBehaviour {
 	private List<GameObject> fishingRodList = new List<GameObject>();
 	private int numRods = 0;
 
+	// harpoonHouse prefabs
+	public GameObject harpoon;
+	private List<GameObject> harpoonList = new List<GameObject>();
+	private int numHarpoons = 0;
+
 	// general prefabs
 	public GameObject hollowCoin;
 	public GameObject coin;
@@ -137,11 +142,20 @@ public class Building : MonoBehaviour {
 				AddCoin();
 				if (coinsAdded == costOfItem) {
 					paid = true;
+
+					// ITEM SPAWNING HERE
+
 					if (isFishingRodHouse){
 						GameObject clone = Instantiate(fishingRod, new Vector3(transform.position.x + (1*numRods), transform.position.y, 0), Quaternion.identity) as GameObject;
 						clone.GetComponent<Item> ().buildingScript = buildingScript;
 						fishingRodList.Add(clone);
 						numRods += 1;
+					}
+					if (isHarpoonHouse){
+						GameObject clone = Instantiate(harpoon, new Vector3(transform.position.x + (1*numRods), transform.position.y, 0), Quaternion.identity) as GameObject;
+						clone.GetComponent<Item> ().buildingScript = buildingScript;
+						harpoonList.Add(clone);
+						numHarpoons += 1;
 					}
 					if (isSignalFire && paid){
 						ActivateSignalFire ();
@@ -258,9 +272,15 @@ public class Building : MonoBehaviour {
 		GameObject clone = Instantiate(harpoonHouse, new Vector3(transform.position.x + buildingBounds.max.x,transform.position.y, houseZdist), Quaternion.identity) as GameObject;
 	}
 
+	// ITEMS PICKED UP HERE
+
 	public void RemoveFishingRod(){
 		fishingRodList.RemoveAt(0);
 		numRods -= 1;
+	}
+	public void RemoveHarpoon(){
+		harpoonList.RemoveAt(0);
+		numHarpoons -= 1;
 	}
 
 	// Ladder
@@ -269,6 +289,7 @@ public class Building : MonoBehaviour {
 		numToClimbLadder += 1;
 	}
 
+	// Signal Fire
 	public void ActivateSignalFire(){
 		inactiveFireModel.SetActive(false);
 		activeFireModel.SetActive(true);
@@ -279,6 +300,8 @@ public class Building : MonoBehaviour {
 		activeFireModel.SetActive(false);
 		blackboard.activeSignalFire = false;
 	}
+
+	// TRIGGERS
 
 	void OnTriggerEnter (Collider col)
 	{

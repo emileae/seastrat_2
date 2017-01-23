@@ -99,9 +99,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 53392186}
   - 33: {fileID: 53392189}
-  - 65: {fileID: 53392188}
   - 23: {fileID: 53392187}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,18 +149,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &53392188
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 53392185}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &53392189
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -370,6 +357,8 @@ MonoBehaviour:
   - {fileID: 1017588785}
   - {fileID: 1450848159}
   - {fileID: 1537005733}
+  beingAttacked: 0
+  attackingEnemy: {fileID: 0}
   pushMenRight: 0
   ladderCoinYPos: 6
   fishermanCapacity: 5
@@ -498,6 +487,7 @@ MonoBehaviour:
   costToBuild: 1
   costOfItem: 3
   fishingRod: {fileID: 0}
+  harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
@@ -837,6 +827,7 @@ MonoBehaviour:
   costToBuild: 0
   costOfItem: 1
   fishingRod: {fileID: 0}
+  harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
@@ -998,6 +989,7 @@ MonoBehaviour:
   costToBuild: 3
   costOfItem: 2
   fishingRod: {fileID: 0}
+  harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
@@ -1169,6 +1161,7 @@ MonoBehaviour:
   costToBuild: 0
   costOfItem: 1
   fishingRod: {fileID: 0}
+  harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
@@ -1246,7 +1239,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1155731989}
   - 114: {fileID: 1155731988}
-  m_Layer: 0
+  - 65: {fileID: 1155731990}
+  m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1280,13 +1274,25 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1155731987}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.4, y: -35.1, z: -6.9}
+  m_LocalPosition: {x: -4.4, y: -57.2, z: -6.9}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 53392186}
   m_Father: {fileID: 0}
   m_RootOrder: 16
+--- !u!65 &1155731990
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1155731987}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4123944, y: 1, z: 23.888285}
+  m_Center: {x: -0.008769608, y: 0, z: 11.444142}
 --- !u!1 &1199287940 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: ecdad9ac00fb741be9607ab6e37318f1, type: 3}
@@ -1431,6 +1437,7 @@ MonoBehaviour:
   costToBuild: 1
   costOfItem: 0
   fishingRod: {fileID: 0}
+  harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
@@ -1499,6 +1506,7 @@ MonoBehaviour:
   costToBuild: 0
   costOfItem: 1
   fishingRod: {fileID: 0}
+  harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
@@ -1632,6 +1640,7 @@ MonoBehaviour:
   costToBuild: 3
   costOfItem: 2
   fishingRod: {fileID: 0}
+  harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
@@ -1822,6 +1831,7 @@ MonoBehaviour:
   costToBuild: 3
   costOfItem: 2
   fishingRod: {fileID: 0}
+  harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
@@ -1989,6 +1999,10 @@ Prefab:
       propertyPath: currentPlatform
       value: 
       objectReference: {fileID: 1677945177}
+    - target: {fileID: 1000010200385714, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
   m_IsPrefabParent: 0
@@ -2220,6 +2234,7 @@ MonoBehaviour:
   costToBuild: 0
   costOfItem: 1
   fishingRod: {fileID: 0}
+  harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0

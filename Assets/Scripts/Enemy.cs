@@ -48,11 +48,21 @@ public class Enemy : MonoBehaviour {
 				blackboard.pushMenRight = false;
 				StartCoroutine (StartAttack ());
 			}
+		} else {
+			busyAttacking = false;
+			blackboard.attackingEnemy = null;
+			blackboard.beingAttacked = false;
 		}
 
 		if (transform.position.y >= blackboard.seaYPos && !busyAttacking) {
 			rise = false;
 			direction = Vector3.zero;
+
+			// now above sea level --> so become visible to the Harpoonmen
+			if (blackboard.attackingEnemy == null || !blackboard.beingAttacked) {
+				blackboard.attackingEnemy = gameObject;
+				blackboard.beingAttacked = true;
+			}
 		}
 
 		transform.Translate(direction * speed * Time.deltaTime);

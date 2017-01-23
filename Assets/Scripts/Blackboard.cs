@@ -26,6 +26,8 @@ public class Blackboard : MonoBehaviour {
 	public List<GameObject> platformMainHouses = new List<GameObject>();
 
 	// Enemy Attack
+	public bool beingAttacked = false;
+	public GameObject attackingEnemy = null;
 	public bool pushMenRight = false;
 
 	// Buildings
