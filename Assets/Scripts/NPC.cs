@@ -154,6 +154,7 @@ public class NPC : MonoBehaviour {
 
 		// layer 10 == item layer
 		if (go.layer == 10 && !haveItem) {
+			Debug.Log("In correct layer... pick up the item");
 			item = go;
 			PickUpItem ();
 		}
@@ -242,6 +243,7 @@ public class NPC : MonoBehaviour {
 	}
 
 	void PickUpItem(){
+		Debug.Log("Pickup the ITEMMMMMM");
 		itemScript = item.GetComponent<Item> ();
 		if (itemScript.hammer) {
 			isBuilder = true;
@@ -329,6 +331,7 @@ public class NPC : MonoBehaviour {
 	void FishermanLogic ()
 	{
 		if (goFish && !isFishing && atFishingSpot) {
+			// if fisherman has a full load of fish then go sell the fish for money
 			if (numFish >= blackboard.fishermanCapacity) {
 				Debug.Log ("Take Fish to market.....");
 				stop = false;
