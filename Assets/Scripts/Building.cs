@@ -9,11 +9,16 @@ public class Building : MonoBehaviour {
 	public Blackboard blackboard;
 
 	public bool isMainHouse = false;
+	public bool isBank = false;
 	public bool isFishingRodHouse = false;
 	public bool isHarpoonHouse = false;
 	public bool isFishingSpot = false;
 	public bool isSignalFire = false;
 	public bool isLadder = false;
+
+	// Platform - the building's platform index
+	public LayerMask groundLayer;
+	public int platformIndex;
 
 	public GameObject fishingRodHouse;
 	public GameObject harpoonHouse;
@@ -46,6 +51,7 @@ public class Building : MonoBehaviour {
 	public GameObject coin;
 	public int coinsAdded = 0;
 	public bool paid = false;
+	public bool waitingForBuilder = false;
 
 	// depositing coins for player to take
 	public bool hasInitialCoins = false;
@@ -80,6 +86,23 @@ public class Building : MonoBehaviour {
 
 		if (blackboard == null) {
 			blackboard = GameObject.Find("Blackboard").GetComponent<Blackboard>();
+		}
+
+		// set building's platform
+		// exclude ladder because it spans 2 platforms... more complicated
+		if (!isLadder) {
+			Collider[] hitColliders = Physics.OverlapSphere (transform.position, buildingBounds.size.y, groundLayer);
+//			for (int i = 0; i < hitColliders.Length; i++) {
+//				platformIndex = hitColliders [i].GetComponent<Platform> ().platformIndex;
+//				Debug.Log ("Platform index Building:" + platformIndex);
+//			}
+			if (Physics.Raycast (new Vector3 (transform.position.x, buildingBounds.min.y, 0), -Vector3.up, 5, groundLayer)) { 
+				print ("There is something below the object!");
+				print ("TODO get platform index from raycast hit");
+			}
+			if (platformIndex == null){
+				Debug.Log("ERROR..... no platform found for building!!!!!!!!!");
+			}
 		}
 
 		if (!active && costToBuild > 0) {
@@ -120,7 +143,10 @@ public class Building : MonoBehaviour {
 			if (coinsAdded < costToBuild) {
 				AddCoin ();
 				if (coinsAdded == costToBuild) {
-					active = true;
+//					active = true;
+					// TODO
+					// trigger a function to call a builder to activate (active=true) building
+					waitingForBuilder = true;
 					paid = true;
 
 					Debug.Log ("Paid in full... remove cost indicators");
@@ -136,10 +162,10 @@ public class Building : MonoBehaviour {
 					// add new houses if main house
 					// TODO
 					// add the active build areas, but need a builder to actually build them
-//					if (isMainHouse) {
-//						AddFishingRodHouse ();
-//						AddHarpoonHouse ();
-//					}
+					if (isMainHouse) {
+						AddFishingRodHouse ();
+						AddHarpoonHouse ();
+					}
 
 				}
 			}
@@ -287,6 +313,10 @@ public class Building : MonoBehaviour {
 
 	// ITEMS PICKED UP HERE
 
+	public void RemoveHammer(){
+		hammerList.RemoveAt(0);
+		numHammers -= 1;
+	}
 	public void RemoveFishingRod(){
 		fishingRodList.RemoveAt(0);
 		numRods -= 1;

@@ -9,46 +9,75 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000013757380990}
+  m_RootGameObject: {fileID: 1000011902691568}
   m_IsPrefabParent: 1
---- !u!1 &1000013757380990
+--- !u!1 &1000010491712212
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000010749815336}
-  - 33: {fileID: 33000011446961262}
-  - 23: {fileID: 23000013658271762}
-  - 114: {fileID: 114000012640696484}
-  - 65: {fileID: 65000012748703830}
-  m_Layer: 9
-  m_Name: HarpoonHouse
+  - 4: {fileID: 4000012507513864}
+  - 33: {fileID: 33000011890299258}
+  - 23: {fileID: 23000010575127296}
+  m_Layer: 0
+  m_Name: flag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000010749815336
+--- !u!1 &1000011902691568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000013086145728}
+  - 114: {fileID: 114000013742479120}
+  - 65: {fileID: 65000013190819982}
+  m_Layer: 9
+  m_Name: Bank
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000012507513864
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013757380990}
+  m_GameObject: {fileID: 1000010491712212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.42, y: 4.26, z: 8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
+  m_Father: {fileID: 4000013086145728}
+  m_RootOrder: 0
+--- !u!4 &4000013086145728
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011902691568}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -24.726837, y: 88.792114, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 4000012507513864}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &23000013658271762
+--- !u!23 &23000010575127296
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013757380990}
+  m_GameObject: {fileID: 1000010491712212}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -56,7 +85,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c8a275be699094391adfcb92b7665273, type: 2}
+  - {fileID: 2100000, guid: bb9715b6225804f43b2f06dba1925b1c, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -72,31 +101,31 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33000011446961262
+--- !u!33 &33000011890299258
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013757380990}
-  m_Mesh: {fileID: 4300000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
---- !u!65 &65000012748703830
+  m_GameObject: {fileID: 1000010491712212}
+  m_Mesh: {fileID: 4300000, guid: af487b771555c40bd969cb056d668f93, type: 3}
+--- !u!65 &65000013190819982
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013757380990}
+  m_GameObject: {fileID: 1000011902691568}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.3413901, y: 7.206999, z: 14.044492}
-  m_Center: {x: -0.16303396, y: 3.6045723, z: -3.428535}
---- !u!114 &114000012640696484
+  m_Size: {x: 2.121601, y: 2.8683186, z: 9.346003}
+  m_Center: {x: 0.56080055, y: 0.9341583, z: 2.5392413}
+--- !u!114 &114000013742479120
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013757380990}
+  m_GameObject: {fileID: 1000011902691568}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65bcd816df59643248a60d4adeec6cb3, type: 3}
@@ -104,31 +133,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackboard: {fileID: 0}
   isMainHouse: 0
-  isBank: 0
-  isFishingRodHouse: 0
-  isHarpoonHouse: 1
+  isBank: 1
+  isFishingRodHouse: 1
+  isHarpoonHouse: 0
   isFishingSpot: 0
   isSignalFire: 0
   isLadder: 0
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  platformIndex: 0
   fishingRodHouse: {fileID: 0}
   harpoonHouse: {fileID: 0}
   active: 0
-  costToBuild: 3
-  costOfItem: 3
+  costToBuild: 0
+  costOfItem: 0
   hammer: {fileID: 0}
   fishingRod: {fileID: 0}
-  harpoon: {fileID: 1000011577446648, guid: 4a04416f312de47bca2699dc8f65cafb, type: 2}
+  harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
   paid: 0
-  waitingForBuilder: 0
-  hasInitialCoins: 0
-  coinsDeposited: 0
+  hasInitialCoins: 1
+  coinsDeposited: 9
   occupied: 0
   activeFireModel: {fileID: 0}
   inactiveFireModel: {fileID: 0}

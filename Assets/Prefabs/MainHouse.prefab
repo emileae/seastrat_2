@@ -151,11 +151,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackboard: {fileID: 0}
   isMainHouse: 1
+  isBank: 0
   isFishingRodHouse: 0
   isHarpoonHouse: 0
   isFishingSpot: 0
   isSignalFire: 0
   isLadder: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  platformIndex: 0
   fishingRodHouse: {fileID: 1000013943585644, guid: fc898c00ef9ca4d258f6f7afca2ffa9f,
     type: 2}
   harpoonHouse: {fileID: 1000013757380990, guid: 176edcc3361b243dc9dc1934f812fb64,
@@ -170,8 +175,9 @@ MonoBehaviour:
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
   paid: 0
+  waitingForBuilder: 0
   hasInitialCoins: 0
-  coinsDeposited: 9
+  coinsDeposited: 0
   occupied: 0
   activeFireModel: {fileID: 0}
   inactiveFireModel: {fileID: 0}

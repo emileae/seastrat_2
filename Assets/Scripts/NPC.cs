@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class NPC : MonoBehaviour {
 
@@ -53,6 +54,8 @@ public class NPC : MonoBehaviour {
 
 	//builder
 	private bool isBuilding = false;
+	public List<GameObject> buildingsToBuild = new List<GameObject>();
+
 
 	//fisherman
 	private GameObject homeFishingSpot;
@@ -190,6 +193,9 @@ public class NPC : MonoBehaviour {
 			if (buildingScript.isLadder) {
 				CheckLadderAvailability (buildingScript);
 			}
+			if (buildingScript.waitingForBuilder && isBuilder) {
+				stop = true;
+			}
 		}
 
 		// Enemy layer
@@ -251,7 +257,7 @@ public class NPC : MonoBehaviour {
 			builderModel.SetActive (true);
 			haveItem = true;
 			// Destroy the hammer
-			itemScript.buildingScript.RemoveFishingRod();
+			itemScript.buildingScript.RemoveHammer();
 			Destroy(item);
 		}
 		if (itemScript.fishingRod) {

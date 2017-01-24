@@ -102,15 +102,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65bcd816df59643248a60d4adeec6cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackboard: {fileID: 0}
   isMainHouse: 0
+  isBank: 0
   isFishingRodHouse: 1
   isHarpoonHouse: 0
+  isFishingSpot: 0
+  isSignalFire: 0
+  isLadder: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  platformIndex: 0
   fishingRodHouse: {fileID: 0}
   harpoonHouse: {fileID: 0}
   active: 0
   costToBuild: 3
   costOfItem: 2
+  hammer: {fileID: 0}
   fishingRod: {fileID: 1000014132607342, guid: 87919cb5c63164dd2877ae1912599de3, type: 2}
+  harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
   coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
   coinsAdded: 0
+  paid: 0
+  waitingForBuilder: 0
+  hasInitialCoins: 0
+  coinsDeposited: 0
+  occupied: 0
+  activeFireModel: {fileID: 0}
+  inactiveFireModel: {fileID: 0}
+  numToClimbLadder: 0
+  Ladder: {fileID: 0}

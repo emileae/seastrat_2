@@ -26,6 +26,7 @@ public class Player : MonoBehaviour {
 	public bool onLadder = false;
 
 	// Buildings
+	private bool atBank = false;
 	private bool atMainHouse = false;
 	private Building buildingScript;
 
@@ -63,13 +64,11 @@ public class Player : MonoBehaviour {
 		if (onGround && !coinActive && inputV < 0) {
 			coinActive = true;
 			Debug.Log("Can pay coin???? " + canPayCoin);
-			if (canPayCoin) {
+			if (canPayCoin && !atBank) {
 				StartCoroutine (PayCoin ());
-			} else {
-				// if at main house then can either collect coins or pay to build and activate
-				if (atMainHouse) {
-					StartCoroutine (CollectCoin ());
-				}
+			}
+			if (atBank) {
+				StartCoroutine (CollectCoin ());
 			}
 		}
 	}
@@ -117,9 +116,13 @@ public class Player : MonoBehaviour {
 				// if main house is already activated
 				// TODO
 				// preventing player from paying to build a hammer.....
-				if (buildingScript.active || buildingScript.hasInitialCoins) {
-					canPayCoin = false;
-				}
+//				if (buildingScript.active || buildingScript.hasInitialCoins) {
+//					canPayCoin = false;
+//				}
+			}
+			if (buildingScript.isBank) {
+				Debug.Log ("At the bank.....");
+				atBank = true;
 			}
 		}
 	}
@@ -132,6 +135,9 @@ public class Player : MonoBehaviour {
 		}
 		if (go.layer == 9) {
 			Debug.Log ("Left a building.... so money can't move");
+			if (atBank) {
+				atBank = false;
+			}
 			buildingScript = null;
 			canPayCoin = false;
 			payTarget = null;
