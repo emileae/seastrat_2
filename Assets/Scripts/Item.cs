@@ -5,6 +5,7 @@ public class Item : MonoBehaviour {
 
 	public Building buildingScript;
 
+	public bool hammer = false;
 	public bool fishingRod = false;
 	public bool harpoon = false;
 

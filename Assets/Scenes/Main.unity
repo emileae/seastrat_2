@@ -156,6 +156,52 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 53392185}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &127977313
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 175956857}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 237e8f594117942e2980a85e65c69591, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 237e8f594117942e2980a85e65c69591, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 237e8f594117942e2980a85e65c69591, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 237e8f594117942e2980a85e65c69591, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 237e8f594117942e2980a85e65c69591, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 237e8f594117942e2980a85e65c69591, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 237e8f594117942e2980a85e65c69591, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 237e8f594117942e2980a85e65c69591, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 237e8f594117942e2980a85e65c69591, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 237e8f594117942e2980a85e65c69591, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1 &151806143
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,6 +243,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
+--- !u!4 &175956857 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000013520882324, guid: 423ecd2db33f44a0da4dff4df81f74f5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1637562125}
 --- !u!1 &333230548
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +364,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 766225568}
   m_RootOrder: 0
+--- !u!1001 &509624109
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000011132860968, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -6.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011132860968, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 3.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011132860968, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 8.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011132860968, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011132860968, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011132860968, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011132860968, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011132860968, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &556067052
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,6 +579,7 @@ MonoBehaviour:
   active: 0
   costToBuild: 1
   costOfItem: 3
+  hammer: {fileID: 0}
   fishingRod: {fileID: 0}
   harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
@@ -711,56 +805,6 @@ GameObject:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: a48f1ed0d3e674a959c2d5ab2cf99b8e, type: 3}
   m_PrefabInternal: {fileID: 681092027}
---- !u!1001 &920994943
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1017588787}
-    m_Modifications:
-    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f4cd2be2e4de446c92f12c460a410c0, type: 2}
-    - target: {fileID: 100000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-  m_IsPrefabParent: 0
 --- !u!1 &932467950
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,6 +870,7 @@ MonoBehaviour:
   active: 1
   costToBuild: 0
   costOfItem: 1
+  hammer: {fileID: 0}
   fishingRod: {fileID: 0}
   harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
@@ -920,87 +965,11 @@ Transform:
   - {fileID: 1786930964}
   m_Father: {fileID: 0}
   m_RootOrder: 13
---- !u!1 &1017588785
+--- !u!1 &1017588785 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1017588787}
-  - 65: {fileID: 1017588786}
-  - 114: {fileID: 1017588788}
-  m_Layer: 9
-  m_Name: MainHouse
-  m_TagString: PayCoin
-  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &1017588786
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1017588785}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.7298536, y: 7.5909653, z: 14.73511}
-  m_Center: {x: -0.15970373, y: 3.9850972, z: -3.3449826}
---- !u!4 &1017588787
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1017588785}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.67, y: 3.09, z: 8.56}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children:
-  - {fileID: 1654263655}
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
---- !u!114 &1017588788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1017588785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65bcd816df59643248a60d4adeec6cb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blackboard: {fileID: 0}
-  isMainHouse: 1
-  isFishingRodHouse: 0
-  isHarpoonHouse: 0
-  isFishingSpot: 0
-  isSignalFire: 0
-  isLadder: 0
-  fishingRodHouse: {fileID: 1000013943585644, guid: fc898c00ef9ca4d258f6f7afca2ffa9f,
+  m_PrefabParentObject: {fileID: 1000011625997338, guid: f035d7512c1cf41c0bb2b6b2262d7b1a,
     type: 2}
-  harpoonHouse: {fileID: 1000013757380990, guid: 176edcc3361b243dc9dc1934f812fb64,
-    type: 2}
-  active: 0
-  costToBuild: 3
-  costOfItem: 2
-  fishingRod: {fileID: 0}
-  harpoon: {fileID: 0}
-  hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
-  coin: {fileID: 1000013542248728, guid: e37a53b75bb68416ab5247cfa39bc0a9, type: 2}
-  coinsAdded: 0
-  paid: 0
-  hasInitialCoins: 0
-  coinsDeposited: 9
-  occupied: 0
-  activeFireModel: {fileID: 0}
-  inactiveFireModel: {fileID: 0}
-  numToClimbLadder: 0
-  Ladder: {fileID: 0}
+  m_PrefabInternal: {fileID: 509624109}
 --- !u!1 &1022579437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,6 +1129,7 @@ MonoBehaviour:
   active: 1
   costToBuild: 0
   costOfItem: 1
+  hammer: {fileID: 0}
   fishingRod: {fileID: 0}
   harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
@@ -1436,6 +1406,7 @@ MonoBehaviour:
   active: 0
   costToBuild: 1
   costOfItem: 0
+  hammer: {fileID: 0}
   fishingRod: {fileID: 0}
   harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
@@ -1505,6 +1476,7 @@ MonoBehaviour:
   active: 1
   costToBuild: 0
   costOfItem: 1
+  hammer: {fileID: 0}
   fishingRod: {fileID: 0}
   harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
@@ -1639,6 +1611,7 @@ MonoBehaviour:
   active: 0
   costToBuild: 3
   costOfItem: 2
+  hammer: {fileID: 0}
   fishingRod: {fileID: 0}
   harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
@@ -1830,6 +1803,7 @@ MonoBehaviour:
   active: 0
   costToBuild: 3
   costOfItem: 2
+  hammer: {fileID: 0}
   fishingRod: {fileID: 0}
   harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}
@@ -2003,13 +1977,42 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4000012372919112, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011035804780, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013863740292, guid: 423ecd2db33f44a0da4dff4df81f74f5,
+        type: 2}
+      propertyPath: builderModel
+      value: 
+      objectReference: {fileID: 1888157129}
+    - target: {fileID: 4000011035804780, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011035804780, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012372919112, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012372919112, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012859229324, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 423ecd2db33f44a0da4dff4df81f74f5, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &1654263655 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
-  m_PrefabInternal: {fileID: 920994943}
 --- !u!4 &1657096202 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 99cb5cd6b4ba84c56880801394dec3ce, type: 3}
@@ -2168,6 +2171,10 @@ Prefab:
     - {fileID: 9500000, guid: 565b629730c1d4dbfa2f3c916056982d, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 565b629730c1d4dbfa2f3c916056982d, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &1888157129 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 237e8f594117942e2980a85e65c69591, type: 3}
+  m_PrefabInternal: {fileID: 127977313}
 --- !u!1 &1976550232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2233,6 +2240,7 @@ MonoBehaviour:
   active: 1
   costToBuild: 0
   costOfItem: 1
+  hammer: {fileID: 0}
   fishingRod: {fileID: 0}
   harpoon: {fileID: 0}
   hollowCoin: {fileID: 1000012086033856, guid: dee3de170bf4445d1bf6aff6e9a8935f, type: 2}

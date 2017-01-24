@@ -8,6 +8,7 @@ public class NPC : MonoBehaviour {
 
 	// NPC types
 	public GameObject unemployedModel;
+	public GameObject builderModel;
 	public GameObject fishermanModel;
 	public GameObject harpoonmanModel;
 
@@ -18,6 +19,7 @@ public class NPC : MonoBehaviour {
 	private Item itemScript;
 
 	// NPC occupation
+	private bool isBuilder = false;
 	private bool isFisherman = false;
 	private bool isHarpoonman = false;
 
@@ -48,6 +50,9 @@ public class NPC : MonoBehaviour {
 	private bool isSelling = false;
 	public bool atMainHouse = false;
 	private bool offloading = false;
+
+	//builder
+	private bool isBuilding = false;
 
 	//fisherman
 	private GameObject homeFishingSpot;
@@ -238,6 +243,15 @@ public class NPC : MonoBehaviour {
 
 	void PickUpItem(){
 		itemScript = item.GetComponent<Item> ();
+		if (itemScript.hammer) {
+			isBuilder = true;
+			unemployedModel.SetActive (false);
+			builderModel.SetActive (true);
+			haveItem = true;
+			// Destroy the hammer
+			itemScript.buildingScript.RemoveFishingRod();
+			Destroy(item);
+		}
 		if (itemScript.fishingRod) {
 			isFisherman = true;
 			unemployedModel.SetActive (false);
@@ -252,7 +266,7 @@ public class NPC : MonoBehaviour {
 			unemployedModel.SetActive (false);
 			harpoonmanModel.SetActive (true);
 			haveItem = true;
-			// Destroy the rod
+			// Destroy the harpoon
 			itemScript.buildingScript.RemoveHarpoon();
 			Destroy(item);
 		}

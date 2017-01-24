@@ -26,6 +26,11 @@ public class Building : MonoBehaviour {
 	public int costToBuild = 3;
 	public int costOfItem = 2;
 
+	// mainHouse prefabs
+	public GameObject hammer;
+	private List<GameObject> hammerList = new List<GameObject>();
+	private int numHammers = 0;
+
 	// fishingRodHouse prefabs
 	public GameObject fishingRod;
 	private List<GameObject> fishingRodList = new List<GameObject>();
@@ -129,10 +134,12 @@ public class Building : MonoBehaviour {
 					}
 
 					// add new houses if main house
-					if (isMainHouse) {
-						AddFishingRodHouse ();
-						AddHarpoonHouse ();
-					}
+					// TODO
+					// add the active build areas, but need a builder to actually build them
+//					if (isMainHouse) {
+//						AddFishingRodHouse ();
+//						AddHarpoonHouse ();
+//					}
 
 				}
 			}
@@ -145,6 +152,12 @@ public class Building : MonoBehaviour {
 
 					// ITEM SPAWNING HERE
 
+					if (isMainHouse){
+						GameObject clone = Instantiate(hammer, new Vector3(transform.position.x + (1*numHammers), transform.position.y, 0), Quaternion.identity) as GameObject;
+						clone.GetComponent<Item> ().buildingScript = buildingScript;
+						hammerList.Add(clone);
+						numHammers += 1;
+					}
 					if (isFishingRodHouse){
 						GameObject clone = Instantiate(fishingRod, new Vector3(transform.position.x + (1*numRods), transform.position.y, 0), Quaternion.identity) as GameObject;
 						clone.GetComponent<Item> ().buildingScript = buildingScript;
@@ -152,7 +165,7 @@ public class Building : MonoBehaviour {
 						numRods += 1;
 					}
 					if (isHarpoonHouse){
-						GameObject clone = Instantiate(harpoon, new Vector3(transform.position.x + (1*numRods), transform.position.y, 0), Quaternion.identity) as GameObject;
+						GameObject clone = Instantiate(harpoon, new Vector3(transform.position.x + (1*numHarpoons), transform.position.y, 0), Quaternion.identity) as GameObject;
 						clone.GetComponent<Item> ().buildingScript = buildingScript;
 						harpoonList.Add(clone);
 						numHarpoons += 1;

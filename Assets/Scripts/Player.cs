@@ -115,6 +115,8 @@ public class Player : MonoBehaviour {
 			if (buildingScript.isMainHouse) {
 				atMainHouse = true;
 				// if main house is already activated
+				// TODO
+				// preventing player from paying to build a hammer.....
 				if (buildingScript.active || buildingScript.hasInitialCoins) {
 					canPayCoin = false;
 				}
