@@ -206,7 +206,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000013086145728, guid: 2312e9acfce9643c992972cc50ee6592, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -12.44
+      value: -14.97
       objectReference: {fileID: 0}
     - target: {fileID: 4000013086145728, guid: 2312e9acfce9643c992972cc50ee6592, type: 2}
       propertyPath: m_LocalPosition.y
@@ -287,7 +287,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000013086145728, guid: 2312e9acfce9643c992972cc50ee6592, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -24.726837
+      value: -39.43
       objectReference: {fileID: 0}
     - target: {fileID: 4000013086145728, guid: 2312e9acfce9643c992972cc50ee6592, type: 2}
       propertyPath: m_LocalPosition.y
@@ -880,7 +880,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000013086145728, guid: 2312e9acfce9643c992972cc50ee6592, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -25.096222
+      value: -29.4
       objectReference: {fileID: 0}
     - target: {fileID: 4000013086145728, guid: 2312e9acfce9643c992972cc50ee6592, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1480,7 +1480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackboard: {fileID: 556067053}
-  speed: 8
+  speed: 2
   direction: {x: 1, y: 0, z: 0}
   speedModifier: 1
   stop: 0

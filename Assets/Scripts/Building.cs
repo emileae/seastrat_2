@@ -319,10 +319,10 @@ public class Building : MonoBehaviour {
 	}
 
 	void AddFishingRodHouse(){
-		GameObject clone = Instantiate(fishingRodHouse, new Vector3(transform.position.x - buildingBounds.max.x,transform.position.y, houseZdist), Quaternion.identity) as GameObject;
+		GameObject clone = Instantiate(fishingRodHouse, new Vector3(transform.position.x - buildingBounds.size.x,transform.position.y, houseZdist), Quaternion.identity) as GameObject;
 	}
 	void AddHarpoonHouse(){
-		GameObject clone = Instantiate(harpoonHouse, new Vector3(transform.position.x + buildingBounds.max.x,transform.position.y, houseZdist), Quaternion.identity) as GameObject;
+		GameObject clone = Instantiate(harpoonHouse, new Vector3(transform.position.x + buildingBounds.size.x,transform.position.y, houseZdist), Quaternion.identity) as GameObject;
 	}
 
 	// ITEMS PICKED UP HERE
