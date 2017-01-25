@@ -17,8 +17,8 @@ public class Building : MonoBehaviour {
 	public bool isLadder = false;
 
 	// Platform - the building's platform index
-	public LayerMask groundLayer;
-	public int platformIndex;
+	public LayerMask groundLayer;// this is probably optional to set, it was only used for trying to automatically detect platform on Start()
+	public int platformIndex;// set this when building in instantiated
 
 	public GameObject fishingRodHouse;
 	public GameObject harpoonHouse;
@@ -27,6 +27,7 @@ public class Building : MonoBehaviour {
 	// Player sensing
 	private bool playerPresent = false;
 
+	public bool payable = true;// all buildings start off payable so that player can pay to be built, then become unpayable when waiting for builder
 	public bool active = false;
 	public int costToBuild = 3;
 	public int costOfItem = 2;
@@ -88,23 +89,6 @@ public class Building : MonoBehaviour {
 			blackboard = GameObject.Find("Blackboard").GetComponent<Blackboard>();
 		}
 
-		// set building's platform
-		// exclude ladder because it spans 2 platforms... more complicated
-		if (!isLadder) {
-			Collider[] hitColliders = Physics.OverlapSphere (transform.position, buildingBounds.size.y, groundLayer);
-//			for (int i = 0; i < hitColliders.Length; i++) {
-//				platformIndex = hitColliders [i].GetComponent<Platform> ().platformIndex;
-//				Debug.Log ("Platform index Building:" + platformIndex);
-//			}
-			if (Physics.Raycast (new Vector3 (transform.position.x, buildingBounds.min.y, 0), -Vector3.up, 5, groundLayer)) { 
-				print ("There is something below the object!");
-				print ("TODO get platform index from raycast hit");
-			}
-			if (platformIndex == null){
-				Debug.Log("ERROR..... no platform found for building!!!!!!!!!");
-			}
-		}
-
 		if (!active && costToBuild > 0) {
 			for (int i = 0; i < costToBuild; i++) {
 				GameObject clone = Instantiate (hollowCoin, new Vector3 (transform.position.x, buildingBounds.max.y + 1 + (1 * i), 0), Quaternion.identity) as GameObject;
@@ -148,6 +132,7 @@ public class Building : MonoBehaviour {
 					// trigger a function to call a builder to activate (active=true) building
 					waitingForBuilder = true;
 					paid = true;
+					payable = false;
 
 					Debug.Log ("Paid in full... remove cost indicators");
 
@@ -162,9 +147,16 @@ public class Building : MonoBehaviour {
 					// add new houses if main house
 					// TODO
 					// add the active build areas, but need a builder to actually build them
+
+					// mainHouse doesn't need a builder
 					if (isMainHouse) {
+						active = true;
+						waitingForBuilder = false;
+						payable = true;
 						AddFishingRodHouse ();
 						AddHarpoonHouse ();
+					} else {
+						CallBuilder();
 					}
 
 				}
@@ -215,6 +207,26 @@ public class Building : MonoBehaviour {
 		}
 	}
 
+	// builder calls this function to 'build'
+	void CallBuilder ()
+	{
+		if (blackboard.builders.Count > 0) {
+			for (int i = 0; i < blackboard.builders.Count; i++) {
+				if (blackboard.builders [i].platformIndex == platformIndex) {
+					Debug.Log ("Call the Builder...");
+					blackboard.builders [i].AddBuildingToList (gameObject);
+				}
+			}
+		} else {
+			blackboard.AddGameObjectToList(gameObject, blackboard.buildingsWaitingForBuilder);
+		}
+	}
+	public void ActivateBuilding(){
+		payable = true;
+		waitingForBuilder = false;
+		active = true;
+	}
+
 	void AddCoin(){
 		GameObject clone = Instantiate (coin, new Vector3 (transform.position.x, buildingBounds.max.y + 1 + (1 * coinsAdded), -0.1f), Quaternion.identity) as GameObject;
 		coinList.Add (clone);
@@ -256,22 +268,24 @@ public class Building : MonoBehaviour {
 
 	void ShowCostOfItem ()
 	{
-		float coinYPos = transform.position.y;
-		if (isLadder) {
-			coinYPos = transform.position.y + blackboard.ladderCoinYPos;
-		} else {
-			coinYPos = buildingBounds.max.y;
-		}
-			
-		if (hollowCoinList.Count <= 0 || hollowCoinList == null) {
-			for (int i = 0; i < costOfItem; i++) {
-				GameObject clone = Instantiate (hollowCoin, new Vector3 (transform.position.x, coinYPos + (1 * i), 0), Quaternion.identity) as GameObject;
-				hollowCoinList.Add (clone);
+		if (active) {
+			float coinYPos = transform.position.y;
+			if (isLadder) {
+				coinYPos = transform.position.y + blackboard.ladderCoinYPos;
+			} else {
+				coinYPos = buildingBounds.max.y;
 			}
-		} else {
-			for (int i = 0; i < hollowCoinList.Count; i++) {
-				hollowCoinList[i].SetActive(true);
-			} 
+			
+			if (hollowCoinList.Count <= 0 || hollowCoinList == null) {
+				for (int i = 0; i < costOfItem; i++) {
+					GameObject clone = Instantiate (hollowCoin, new Vector3 (transform.position.x, coinYPos + (1 * i), 0), Quaternion.identity) as GameObject;
+					hollowCoinList.Add (clone);
+				}
+			} else {
+				for (int i = 0; i < hollowCoinList.Count; i++) {
+					hollowCoinList [i].SetActive (true);
+				} 
+			}
 		}
 	}
 	void HideCostOfItem ()

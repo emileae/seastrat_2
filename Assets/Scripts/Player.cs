@@ -169,10 +169,14 @@ public class Player : MonoBehaviour {
 	{
 		yield return new WaitForSeconds (0.2f);
 		if (coinsInHand > 0 && payTarget != null) {
-			coinActive = false;
-			Debug.Log ("Player -> Pay a coin");
-			payTarget.GetComponent<Building> ().PayCoin ();
-			coinsInHand -= 1;
+			if (buildingScript != null) {
+				if (buildingScript.payable) {
+					coinActive = false;
+					Debug.Log ("Player -> Pay a coin");
+					buildingScript.PayCoin ();
+					coinsInHand -= 1;
+				}
+			}
 		} else {
 			canPayCoin = false;
 		}

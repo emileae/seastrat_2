@@ -236,6 +236,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013742479120, guid: 2312e9acfce9643c992972cc50ee6592,
+        type: 2}
+      propertyPath: groundLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2312e9acfce9643c992972cc50ee6592, type: 2}
   m_IsPrefabParent: 0
@@ -315,6 +320,16 @@ Prefab:
     - target: {fileID: 1000011902691568, guid: 2312e9acfce9643c992972cc50ee6592, type: 2}
       propertyPath: m_Name
       value: Bank (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013742479120, guid: 2312e9acfce9643c992972cc50ee6592,
+        type: 2}
+      propertyPath: platformIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013742479120, guid: 2312e9acfce9643c992972cc50ee6592,
+        type: 2}
+      propertyPath: groundLayer.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2312e9acfce9643c992972cc50ee6592, type: 2}
@@ -500,6 +515,8 @@ MonoBehaviour:
   - {fileID: 1017588785}
   - {fileID: 358972734}
   - {fileID: 788448911}
+  builders: []
+  buildingsWaitingForBuilder: []
   beingAttacked: 0
   attackingEnemy: {fileID: 0}
   pushMenRight: 0
@@ -631,6 +648,7 @@ MonoBehaviour:
   platformIndex: 0
   fishingRodHouse: {fileID: 0}
   harpoonHouse: {fileID: 0}
+  payable: 1
   active: 0
   costToBuild: 1
   costOfItem: 3
@@ -845,7 +863,7 @@ MonoBehaviour:
     m_Bits: 256
   onGround: 0
   onLadder: 0
-  coinsInHand: 0
+  coinsInHand: 100
   payTarget: {fileID: 0}
   canPayCoin: 0
   coins: 0
@@ -896,6 +914,16 @@ Prefab:
       propertyPath: m_Name
       value: Bank (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013742479120, guid: 2312e9acfce9643c992972cc50ee6592,
+        type: 2}
+      propertyPath: platformIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013742479120, guid: 2312e9acfce9643c992972cc50ee6592,
+        type: 2}
+      propertyPath: groundLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2312e9acfce9643c992972cc50ee6592, type: 2}
   m_IsPrefabParent: 0
@@ -941,6 +969,11 @@ Prefab:
     - target: {fileID: 1000011625997338, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
       propertyPath: m_Name
       value: MainHouse (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012999122726, guid: f035d7512c1cf41c0bb2b6b2262d7b1a,
+        type: 2}
+      propertyPath: platformIndex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
@@ -1025,6 +1058,7 @@ MonoBehaviour:
   platformIndex: 0
   fishingRodHouse: {fileID: 0}
   harpoonHouse: {fileID: 0}
+  payable: 1
   active: 1
   costToBuild: 0
   costOfItem: 1
@@ -1085,6 +1119,11 @@ Prefab:
     - target: {fileID: 1000011625997338, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
       propertyPath: m_Name
       value: MainHouse (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012999122726, guid: f035d7512c1cf41c0bb2b6b2262d7b1a,
+        type: 2}
+      propertyPath: platformIndex
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f035d7512c1cf41c0bb2b6b2262d7b1a, type: 2}
@@ -1286,6 +1325,7 @@ MonoBehaviour:
   platformIndex: 0
   fishingRodHouse: {fileID: 0}
   harpoonHouse: {fileID: 0}
+  payable: 1
   active: 1
   costToBuild: 0
   costOfItem: 1
@@ -1569,6 +1609,7 @@ MonoBehaviour:
   platformIndex: 0
   fishingRodHouse: {fileID: 0}
   harpoonHouse: {fileID: 0}
+  payable: 1
   active: 0
   costToBuild: 1
   costOfItem: 0
@@ -1641,6 +1682,7 @@ MonoBehaviour:
   platformIndex: 0
   fishingRodHouse: {fileID: 0}
   harpoonHouse: {fileID: 0}
+  payable: 1
   active: 1
   costToBuild: 0
   costOfItem: 1
@@ -2152,6 +2194,7 @@ MonoBehaviour:
   platformIndex: 0
   fishingRodHouse: {fileID: 0}
   harpoonHouse: {fileID: 0}
+  payable: 1
   active: 1
   costToBuild: 0
   costOfItem: 1

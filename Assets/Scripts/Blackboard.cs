@@ -19,11 +19,16 @@ public class Blackboard : MonoBehaviour {
 	public Building signalFireScript = null;
 	public GameObject dock;
 
+	// platforms
 	public List<GameObject> platforms = new List<GameObject>();
 	public List<Platform> platformScripts = new List<Platform>();
 	public List<float> platformTopPos = new List<float>();
 	public List<Bounds> platformBounds = new List<Bounds>();
 	public List<GameObject> platformMainHouses = new List<GameObject>();
+
+	// Builders
+	public List<NPC> builders = new List<NPC>();
+	public List<GameObject> buildingsWaitingForBuilder = new List<GameObject>();
 
 	// Enemy Attack
 	public bool beingAttacked = false;
@@ -68,5 +73,12 @@ public class Blackboard : MonoBehaviour {
 	public void ExtinguishSignalFire(){
 		Debug.Log ("Turn off signal fire -> false and set model to inactive");
 		signalFireScript.DeactivateSignalFire ();
+	}
+
+	public void AddNPCToList(NPC npc, List<NPC> list){
+		list.Add(npc);
+	}
+	public void AddGameObjectToList(GameObject go, List<GameObject> list){
+		list.Add(go);
 	}
 }

@@ -30,7 +30,7 @@ public class NPC : MonoBehaviour {
 	// PLATFORM information about the NPCs platform - if this changes then need to update the function that updates the paltform... lower down ins cript
 	public GameObject currentPlatform;
 	private Platform platformScript;
-	private int platformIndex = 0;
+	public int platformIndex = 0;
 	public GameObject mainHouse;
 	public Building mainHouseScript;
 
@@ -46,6 +46,10 @@ public class NPC : MonoBehaviour {
 	public float walkSpeed = 2.0f;
 	public float speedModifier = 1.0f;
 	private bool stop = false;
+
+	// move to target
+	private bool movingToTarget = false;
+	public GameObject targetToMoveTo = null;
 
 	// going to mainhouse
 	private bool isSelling = false;
@@ -157,7 +161,7 @@ public class NPC : MonoBehaviour {
 
 		// layer 10 == item layer
 		if (go.layer == 10 && !haveItem) {
-			Debug.Log("In correct layer... pick up the item");
+			Debug.Log ("In correct layer... pick up the item");
 			item = go;
 			PickUpItem ();
 		}
@@ -186,15 +190,20 @@ public class NPC : MonoBehaviour {
 				}
 			}
 
+			if (isBuilder) {
+				if (go == targetToMoveTo && !buildingScript.isMainHouse) {
+					Debug.Log("Build this building......." + go.name);
+					stop = true;
+					StartCoroutine(Build());
+				}
+			}
+
 			if (buildingScript.isMainHouse) {
 				atMainHouse = true;
 				Debug.Log("Passing Main House..........");
 			}
 			if (buildingScript.isLadder) {
 				CheckLadderAvailability (buildingScript);
-			}
-			if (buildingScript.waitingForBuilder && isBuilder) {
-				stop = true;
 			}
 		}
 
@@ -209,7 +218,8 @@ public class NPC : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit(Collider col){
+	void OnTriggerExit (Collider col)
+	{
 		GameObject go = col.gameObject;
 		if (go.layer == 9) {
 			buildingScript = go.GetComponent<Building> ();
@@ -227,13 +237,18 @@ public class NPC : MonoBehaviour {
 
 			if (buildingScript.isMainHouse) {
 				atMainHouse = false;
-				Debug.Log("Leaving Main House..........");
+				Debug.Log ("Leaving Main House..........");
 			}
 		}
 
 		// Enemy layer
-		if(go.layer == 11){
+		if (go.layer == 11) {
 			withinAttackRange = false;
+		}
+
+		// reset moving towards target if exiting a target gameobject
+		if (go == targetToMoveTo) {
+			movingToTarget = false;
 		}
 
 	}
@@ -246,10 +261,14 @@ public class NPC : MonoBehaviour {
 			Debug.Log("target is on left..." + platformIndex);
 			direction = -Vector3.right;
 		}
+
+		targetToMoveTo = target;
+		movingToTarget = true;
 	}
 
-	void PickUpItem(){
-		Debug.Log("Pickup the ITEMMMMMM");
+	void PickUpItem ()
+	{
+		Debug.Log ("Pickup the ITEMMMMMM");
 		itemScript = item.GetComponent<Item> ();
 		if (itemScript.hammer) {
 			isBuilder = true;
@@ -257,8 +276,20 @@ public class NPC : MonoBehaviour {
 			builderModel.SetActive (true);
 			haveItem = true;
 			// Destroy the hammer
-			itemScript.buildingScript.RemoveHammer();
-			Destroy(item);
+			itemScript.buildingScript.RemoveHammer ();
+			Destroy (item);
+
+			// keep a list of builders on blackboard
+			blackboard.AddNPCToList (gameObject.GetComponent<NPC> (), blackboard.builders);
+			// check for any buildings waiting to be built
+			if (blackboard.buildingsWaitingForBuilder.Count > 0) {
+				for (int i = 0; i < blackboard.buildingsWaitingForBuilder.Count; i++) {
+					if (blackboard.buildingsWaitingForBuilder [i].GetComponent<Building> ().platformIndex == platformIndex) {
+						AddBuildingToList(blackboard.buildingsWaitingForBuilder [i]);
+					}
+				}
+				MoveTowardsTarget(blackboard.buildingsWaitingForBuilder[0]);
+			}
 		}
 		if (itemScript.fishingRod) {
 			isFisherman = true;
@@ -279,6 +310,41 @@ public class NPC : MonoBehaviour {
 			Destroy(item);
 		}
 	}
+
+	// BUILDING
+
+	void CheckForWaitingBuildings(){
+		
+	}
+
+	public void AddBuildingToList (GameObject building)
+	{
+		buildingsToBuild.Add(building);
+
+		// if its the first building in the list then go there
+		if (!movingToTarget){
+			MoveTowardsTarget(building);
+		}
+	}
+
+	IEnumerator Build ()
+	{
+		Debug.Log ("Building.... building... building...");
+		yield return new WaitForSeconds (5.0f);
+		buildingScript.waitingForBuilder = false;
+		buildingScript.active = true;
+		buildingScript.payable = true;
+		buildingsToBuild.Remove (targetToMoveTo);
+		stop = false;
+		Debug.Log ("Built!");
+		targetToMoveTo = null;
+		// if more buildings to build... then go there
+		if (buildingsToBuild.Count > 0) {
+			MoveTowardsTarget(buildingsToBuild[0]);
+			Debug.Log("Move to the next building");
+		}
+	}
+
 
 	// HARPOONING
 
